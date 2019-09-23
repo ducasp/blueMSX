@@ -1,0 +1,482 @@
+<bluemsxtheme name="blueMSX - Input Editor">
+    <window name="blueMSX - Input Editor" type="multipage" handler="keyboard-config" frame="0">
+        <page width="500" height="330" name="joystick1">
+	<clipregion>
+		<point x="4" y="0"/>
+		<point x="496" y="0"/>
+		<point x="497" y="1"/>
+		<point x="498" y="1"/>
+		<point x="499" y="2"/>
+		<point x="499" y="3"/>
+		<point x="500" y="4"/>
+		<point x="500" y="325"/>
+		<point x="499" y="326"/>
+		<point x="499" y="327"/>
+		<point x="498" y="328"/>
+		<point x="497" y="329"/>
+		<point x="496" y="329"/>
+		<point x="5" y="330"/>
+		<point x="4" y="329"/>
+		<point x="3" y="329"/>
+		<point x="2" y="328"/>
+		<point x="1" y="327"/>
+		<point x="1" y="326"/>
+		<point x="0" y="325"/>
+		<point x="0" y="4"/>
+		<point x="1" y="3"/>
+		<point x="1" y="2"/>
+		<point x="2" y="1"/>
+	</clipregion>
+            <dragimage x="0" y="0" activenotify="1" src="TurboRN/EOS-top.bmp" />
+            <dragimage x="0" y="24" src="TurboRN/EOS-joystick1.bmp" />
+
+            <button x="475" y="4" activenotify="1" src="TurboRN/CLOSE-BUTTON.bmp" action="theme-close" />
+            <button x="455" y="4" activenotify="1" src="TurboRN/MIN-BUTTON.bmp" action="theme-minimize" />
+
+            <button x="128" y="38" src="TurboRN/JOY1-JOY2-BUTTON.bmp" action="theme-setpage" arga="joystick2"/>
+            <button x="220" y="38" src="TurboRN/JOY1-KEYBOARD-BUTTON.bmp" action="theme-setpage" arga="keyboard"/>
+            <object x="140" y="287" width="100" height="21" id="button-ok" />
+            <object x="280" y="287" width="100" height="21" id="button-cancel" />
+        
+            <text x="150" y="90" width="140" fgcolor="000000" src="TurboRN/SEL-DROP.bmp" type="native"
+                trigger="text-joyport1"/>
+	        <button x="350" y="87" src="TurboRN/joybutton.bmp" action="menu-joyport1" arga="143" argb="104"/>
+
+		    <block x="50" y="115" visible="port1-none">
+	        </block>
+
+		    <block x="50" y="115" visible="port1-joystick">
+                <text x="170" y="20" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-selkey" />
+                <text x="170" y="35" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-selectedkey" />
+                <text x="170" y="60" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-mappedto" />
+                <text x="170" y="75" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-mappedkey" />
+                <keyboard x="25" y="17" src="TurboRN/EOS-JOYSTICK.bmp">
+                    <key code="joy1-up" x="18" y="38" width="10" height="9" />
+                    <key code="joy1-down" x="18" y="57" width="10" height="9" />
+                    <key code="joy1-left" x="9" y="47" width="9" height="10" />
+                    <key code="joy1-right" x="28" y="47" width="9" height="10" />
+                    <key code="joy1-button1" x="75" y="44" width="16" height="16" />
+                    <key code="joy1-button2" x="94" y="44" width="16" height="16" />
+                </keyboard>
+	        </block>
+
+		    <block x="80" y="115" visible="port1-mouse">
+	            <image x="100" y="17" src="TurboRN/EOS-MOUSE.bmp"/>
+	        </block>
+
+		    <block x="80" y="115" visible="port1-arkanoidpad">
+	            <image x="135" y="0" src="TurboRN/EOS-ARKANOIDPAD.bmp"/>
+	        </block>
+	        
+	        <block x="95" y="115" visible="port1-tetris2dongle">
+	            <image x="100" y="18" src="TurboRN/EOS-TETRISDONGLE.bmp"/>
+	        </block>
+
+		    <block x="95" y="115" visible="port1-magickeydongle">
+	            <image x="95" y="20" src="TurboRN/EOS-DONGLE.bmp"/>
+	        </block>
+
+		    <block x="50" y="115" visible="port1-gunstick">
+	            <image x="115" y="20" src="TurboRN/EOS-SEGAGUN.bmp"/>
+	        </block>
+
+		    <block x="50" y="115" visible="port1-asciilaser">
+	            <image x="100" y="20" src="TurboRN/EOS-ASCIIGUN.bmp"/>
+	        </block>
+
+		    <block x="50" y="115" visible="port1-colecojoystick">
+                <text x="170" y="20" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-selkey" />
+                <text x="170" y="35" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-selectedkey" />
+                <text x="170" y="60" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-mappedto" />
+                <text x="170" y="75" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-mappedkey" />
+                <keyboard x="65" y="0" src="TurboRN/EOS-COLECO.bmp">
+                    <key code="joy1-left" x="11" y="9" width="9" height="11" />
+                    <key code="joy1-right" x="31" y="9" width="12" height="11" />
+                    <key code="joy1-up" x="20" y="0" width="12" height="9" />
+                    <key code="joy1-down" x="20" y="21" width="12" height="11" />
+                    <key code="joy1-button1" x="0" y="35" width="8" height="15" />
+                    <key code="joy1-button2" x="45" y="35" width="8" height="15" />
+                    <key code="coleco1-1" x="6" y="68" width="14" height="14" />
+                    <key code="coleco1-2" x="21" y="68" width="14" height="14" />
+                    <key code="coleco1-3" x="35" y="68" width="14" height="14" />
+                    <key code="coleco1-4" x="6" y="82" width="14" height="14" />
+                    <key code="coleco1-5" x="21" y="82" width="14" height="14" />
+                    <key code="coleco1-6" x="35" y="82" width="14" height="14" />
+                    <key code="coleco1-7" x="6" y="97" width="14" height="14" />
+                    <key code="coleco1-8" x="21" y="97" width="14" height="14" />
+                    <key code="coleco1-9" x="35" y="97" width="14" height="14" />
+                    <key code="coleco1-star" x="6" y="111" width="14" height="14" />
+                    <key code="coleco1-0" x="21" y="111" width="14" height="14" />
+                    <key code="coleco1-hashmark" x="35" y="111" width="14" height="14" />
+                </keyboard>
+	        </block>
+
+		    <block x="50" y="115" visible="port1-superaction">
+                <text x="170" y="20" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-selkey" />
+                <text x="170" y="35" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-selectedkey" />
+                <text x="170" y="60" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-mappedto" />
+                <text x="170" y="75" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-mappedkey" />
+                <keyboard x="15" y="0" src="TurboRN/EOS-SACONTROL.bmp">
+                    <key code="joy1-left" x="11" y="11" width="12" height="12" />
+                    <key code="joy1-right" x="37" y="11" width="12" height="12" />
+                    <key code="joy1-up" x="23" y="0" width="14" height="10" />
+                    <key code="joy1-down" x="23" y="23" width="14" height="11" />
+                    <key code="joy1-button1" x="107" y="63" width="8" height="12" />
+                    <key code="joy1-button2" x="107" y="76" width="8" height="11" />
+                    <key code="joy1-button3" x="108" y="88" width="8" height="12" />
+                    <key code="joy1-button4" x="108" y="101" width="8" height="11" />
+                    <key code="coleco1-1" x="17" y="50" width="12" height="10" />
+                    <key code="coleco1-2" x="29" y="50" width="11" height="10" />
+                    <key code="coleco1-3" x="40" y="50" width="12" height="10" />
+                    <key code="coleco1-4" x="17" y="61" width="12" height="10" />
+                    <key code="coleco1-5" x="29" y="61" width="11" height="10" />
+                    <key code="coleco1-6" x="40" y="61" width="12" height="10" />
+                    <key code="coleco1-7" x="17" y="71" width="12" height="10" />
+                    <key code="coleco1-8" x="29" y="71" width="11" height="10" />
+                    <key code="coleco1-9" x="40" y="71" width="12" height="10" />
+                    <key code="coleco1-star" x="17" y="81" width="12" height="10" />
+                    <key code="coleco1-0" x="29" y="81" width="11" height="10" />
+                    <key code="coleco1-hashmark" x="40" y="81" width="12" height="10" />
+                    <key code="joy1-quadwheelA" x="20" y="99" width="24" height="5" />
+                    <key code="joy1-quadwheelB" x="20" y="104" width="24" height="5" />
+                </keyboard>
+	        </block>
+
+		    <block x="80" y="115" visible="port1-steeringwheel">
+	            <image x="100" y="17" src="TurboRN/EOS-STEERINGWHEEL.bmp"/>
+	        </block>
+	        
+	        
+        </page>
+
+
+        <page width="500" height="330" name="joystick2">
+	<clipregion>
+		<point x="4" y="0"/>
+		<point x="496" y="0"/>
+		<point x="497" y="1"/>
+		<point x="498" y="1"/>
+		<point x="499" y="2"/>
+		<point x="499" y="3"/>
+		<point x="500" y="4"/>
+		<point x="500" y="325"/>
+		<point x="499" y="326"/>
+		<point x="499" y="327"/>
+		<point x="498" y="328"/>
+		<point x="497" y="329"/>
+		<point x="496" y="329"/>
+		<point x="5" y="330"/>
+		<point x="4" y="329"/>
+		<point x="3" y="329"/>
+		<point x="2" y="328"/>
+		<point x="1" y="327"/>
+		<point x="1" y="326"/>
+		<point x="0" y="325"/>
+		<point x="0" y="4"/>
+		<point x="1" y="3"/>
+		<point x="1" y="2"/>
+		<point x="2" y="1"/>
+	</clipregion>
+            <dragimage x="0" y="0" activenotify="1" src="TurboRN/EOS-top.bmp" />
+            <dragimage x="0" y="24" src="TurboRN/EOS-joystick2.bmp" />
+
+            <button x="475" y="4" activenotify="1" src="TurboRN/CLOSE-BUTTON.bmp" action="theme-close" />
+            <button x="455" y="4" activenotify="1" src="TurboRN/MIN-BUTTON.bmp" action="theme-minimize" />
+
+            <button x="33" y="38" src="TurboRN/JOY2-JOY1-BUTTON.bmp" action="theme-setpage" arga="joystick1"/>
+            <button x="220" y="38" src="TurboRN/JOY2-KEYBOARD-BUTTON.bmp" action="theme-setpage" arga="keyboard"/>
+            <object x="140" y="287" width="100" height="21" id="button-ok" />
+            <object x="280" y="287" width="100" height="21" id="button-cancel" />
+            
+            <text x="150" y="90" width="140" fgcolor="000000" src="TurboRN/SEL-DROP.bmp" type="native"
+                trigger="text-joyport2"/>
+	        <button x="350" y="87" src="TurboRN/joybutton.bmp" action="menu-joyport2" arga="143" argb="104"/>
+
+		    <block x="50" y="115" visible="port2-none">
+	        </block>
+
+		    <block x="50" y="115" visible="port2-joystick">
+                <text x="170" y="20" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-selkey" />
+                <text x="170" y="35" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-selectedkey" />
+                <text x="170" y="60" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-mappedto" />
+                <text x="170" y="75" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-mappedkey" />
+                <keyboard x="25" y="17" src="TurboRN/EOS-JOYSTICK.bmp">
+                    <key code="joy2-up" x="18" y="38" width="10" height="9" />
+                    <key code="joy2-down" x="18" y="57" width="10" height="9" />
+                    <key code="joy2-left" x="9" y="47" width="9" height="10" />
+                    <key code="joy2-right" x="28" y="47" width="9" height="10" />
+                    <key code="joy2-button1" x="75" y="44" width="16" height="16" />
+                    <key code="joy2-button2" x="94" y="44" width="16" height="16" />
+                </keyboard>
+	        </block>
+
+		    <block x="80" y="115" visible="port2-mouse">
+	            <image x="100" y="17" src="TurboRN/EOS-MOUSE.bmp"/>
+	        </block>
+
+		    <block x="80" y="115" visible="port2-arkanoidpad">
+	            <image x="135" y="0" src="TurboRN/EOS-ARKANOIDPAD.bmp"/>
+	        </block>
+
+		    <block x="95" y="115" visible="port2-tetris2dongle">
+	            <image x="100" y="18" src="TurboRN/EOS-TETRISDONGLE.bmp"/>
+	        </block>
+
+		    <block x="95" y="115" visible="port2-magickeydongle">
+	            <image x="95" y="20" src="TurboRN/EOS-DONGLE.bmp"/>
+	        </block>
+
+		    <block x="50" y="115" visible="port2-gunstick">
+	            <image x="115" y="20" src="TurboRN/EOS-SEGAGUN.bmp"/>
+	        </block>
+
+		    <block x="50" y="115" visible="port2-asciilaser">
+	            <image x="100" y="20" src="TurboRN/EOS-ASCIIGUN.bmp"/>
+	        </block>
+
+		    <block x="50" y="115" visible="port2-colecojoystick">
+                <text x="170" y="20" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-selkey" />
+                <text x="170" y="35" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-selectedkey" />
+                <text x="170" y="60" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-mappedto" />
+                <text x="170" y="75" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-mappedkey" />
+                <keyboard x="65" y="0" src="TurboRN/EOS-COLECO.bmp">
+                    <key code="joy2-left" x="11" y="9" width="9" height="11" />
+                    <key code="joy2-right" x="31" y="9" width="12" height="11" />
+                    <key code="joy2-up" x="20" y="0" width="12" height="9" />
+                    <key code="joy2-down" x="20" y="21" width="12" height="11" />
+                    <key code="joy2-button1" x="0" y="35" width="8" height="15" />
+                    <key code="joy2-button2" x="45" y="35" width="8" height="15" />
+                    <key code="coleco2-1" x="6" y="68" width="14" height="14" />
+                    <key code="coleco2-2" x="21" y="68" width="14" height="14" />
+                    <key code="coleco2-3" x="35" y="68" width="14" height="14" />
+                    <key code="coleco2-4" x="6" y="82" width="14" height="14" />
+                    <key code="coleco2-5" x="21" y="82" width="14" height="14" />
+                    <key code="coleco2-6" x="35" y="82" width="14" height="14" />
+                    <key code="coleco2-7" x="6" y="97" width="14" height="14" />
+                    <key code="coleco2-8" x="21" y="97" width="14" height="14" />
+                    <key code="coleco2-9" x="35" y="97" width="14" height="14" />
+                    <key code="coleco2-star" x="6" y="111" width="14" height="14" />
+                    <key code="coleco2-0" x="21" y="111" width="14" height="14" />
+                    <key code="coleco2-hashmark" x="35" y="111" width="14" height="14" />
+                </keyboard>
+	        </block>
+	        
+		    <block x="50" y="115" visible="port2-superaction">
+                <text x="170" y="20" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-selkey" />
+                <text x="170" y="35" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-selectedkey" />
+                <text x="170" y="60" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                    trigger="lang-kbd-mappedto" />
+                <text x="170" y="75" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                    type="native" trigger="text-mappedkey" />
+                <keyboard x="15" y="0" src="TurboRN/EOS-SACONTROL.bmp">
+                    <key code="joy2-left" x="11" y="11" width="12" height="12" />
+                    <key code="joy2-right" x="37" y="11" width="12" height="12" />
+                    <key code="joy2-up" x="23" y="0" width="14" height="10" />
+                    <key code="joy2-down" x="23" y="23" width="14" height="11" />
+                    <key code="joy2-button1" x="107" y="63" width="8" height="12" />
+                    <key code="joy2-button2" x="107" y="76" width="8" height="11" />
+                    <key code="joy2-button3" x="108" y="88" width="8" height="12" />
+                    <key code="joy2-button4" x="108" y="101" width="8" height="11" />
+                    <key code="coleco2-1" x="17" y="50" width="12" height="10" />
+                    <key code="coleco2-2" x="29" y="50" width="11" height="10" />
+                    <key code="coleco2-3" x="40" y="50" width="12" height="10" />
+                    <key code="coleco2-4" x="17" y="61" width="12" height="10" />
+                    <key code="coleco2-5" x="29" y="61" width="11" height="10" />
+                    <key code="coleco2-6" x="40" y="61" width="12" height="10" />
+                    <key code="coleco2-7" x="17" y="71" width="12" height="10" />
+                    <key code="coleco2-8" x="29" y="71" width="11" height="10" />
+                    <key code="coleco2-9" x="40" y="71" width="12" height="10" />
+                    <key code="coleco2-star" x="17" y="81" width="12" height="10" />
+                    <key code="coleco2-0" x="29" y="81" width="11" height="10" />
+                    <key code="coleco2-hashmark" x="40" y="81" width="12" height="10" />
+                    <key code="joy2-quadwheelA" x="20" y="99" width="24" height="5" />
+                    <key code="joy2-quadwheelB" x="20" y="104" width="24" height="5" />
+                </keyboard>
+	        </block>
+
+		    <block x="80" y="115" visible="port2-steeringwheel">
+	            <image x="100" y="17" src="TurboRN/EOS-STEERINGWHEEL.bmp"/>
+	        </block>
+	        	        
+        </page>
+
+        
+        <page width="500" height="330" name="keyboard">
+	<clipregion>
+		<point x="4" y="0"/>
+		<point x="496" y="0"/>
+		<point x="497" y="1"/>
+		<point x="498" y="1"/>
+		<point x="499" y="2"/>
+		<point x="499" y="3"/>
+		<point x="500" y="4"/>
+		<point x="500" y="325"/>
+		<point x="499" y="326"/>
+		<point x="499" y="327"/>
+		<point x="498" y="328"/>
+		<point x="497" y="329"/>
+		<point x="496" y="329"/>
+		<point x="5" y="330"/>
+		<point x="4" y="329"/>
+		<point x="3" y="329"/>
+		<point x="2" y="328"/>
+		<point x="1" y="327"/>
+		<point x="1" y="326"/>
+		<point x="0" y="325"/>
+		<point x="0" y="4"/>
+		<point x="1" y="3"/>
+		<point x="1" y="2"/>
+		<point x="2" y="1"/>
+	</clipregion>
+            <dragimage x="0" y="0" activenotify="1" src="TurboRN/EOS-top.bmp" />
+            <dragimage x="0" y="24" src="TurboRN/EOS-keyboard.bmp" />
+            
+            <button x="475" y="4" activenotify="1" src="TurboRN/CLOSE-BUTTON.bmp" action="theme-close" />
+            <button x="455" y="4" activenotify="1" src="TurboRN/MIN-BUTTON.bmp" action="theme-minimize" />
+
+            <button x="33" y="38" src="TurboRN/KEYBOARD-JOY1-BUTTON.bmp" action="theme-setpage" arga="joystick1"/>
+            <button x="128" y="38" src="TurboRN/KEYBOARD-JOY2-BUTTON.bmp" action="theme-setpage" arga="joystick2"/>
+
+		    <block x="50" y="115" visible="not keyboard-enable">
+	        </block>
+
+		    <block x="0" y="0" visible="keyboard-enable">
+
+            <text x="66" y="225" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                trigger="lang-kbd-selkey" />
+            <text x="200" y="225" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                type="native" trigger="text-selectedkey" />
+            <text x="66" y="240" width="100" fgcolor="D8E0E7" src="TurboRN/SEL-TEXT.bmp" type="native"
+                trigger="lang-kbd-mappedto" />
+            <text x="200" y="240" width="300" fgcolor="000000" src="TurboRN/SEL-BOX.bmp" align="right"
+                type="native" trigger="text-mappedkey" />
+            <object x="140" y="287" width="100" height="21" id="button-ok" />
+            <object x="280" y="287" width="100" height="21" id="button-cancel" />
+            <keyboard x="62" y="94" src="TurboRN/EOS-key.bmp">
+                <key code="f1" x="10" y="4" width="27" height="15" />
+                <key code="f2" x="37" y="4" width="26" height="15" />
+                <key code="f3" x="63" y="4" width="26" height="15" />
+                <key code="f4" x="89" y="4" width="26" height="15" />
+                <key code="f5" x="115" y="4" width="26" height="15" />
+                <key code="stop" x="148" y="4" width="26" height="15" />
+                <key code="cls" x="174" y="4" width="26" height="15" />
+                <key code="select" x="207" y="4" width="26" height="15" />
+                <key code="ins" x="233" y="4" width="26" height="15" />
+                <key code="del" x="259" y="4" width="26" height="15" />
+                
+                <key code="esc" x="0" y="20" width="19" height="15" />
+                <key code="1" x="19" y="20" width="20" height="15" />
+                <key code="2" x="39" y="20" width="20" height="15" />
+                <key code="3" x="59" y="20" width="19" height="15" />
+                <key code="4" x="78" y="20" width="20" height="15" />
+                <key code="5" x="98" y="20" width="20" height="15" />
+                <key code="6" x="118" y="20" width="19" height="15" />
+                <key code="7" x="137" y="20" width="20" height="15" />
+                <key code="8" x="157" y="20" width="20" height="15" />
+                <key code="9" x="177" y="20" width="19" height="15" />
+                <key code="0" x="196" y="20" width="20" height="15" />
+                <key code="neg" x="216" y="20" width="20" height="15" />
+                <key code="circomflex" x="236" y="20" width="19" height="15" />
+                <key code="backslash" x="255" y="20" width="20" height="15" />
+                <key code="backspace" x="275" y="20" width="20" height="15" />
+                
+                <key code="tab" x="0" y="35" width="29" height="15" />
+                <key code="q" x="29" y="35" width="20" height="15" />
+                <key code="w" x="49" y="35" width="20" height="15" />
+                <key code="e" x="69" y="35" width="19" height="15" />
+                <key code="r" x="88" y="35" width="20" height="15" />
+                <key code="t" x="108" y="35" width="20" height="15" />
+                <key code="y" x="128" y="35" width="19" height="15" />
+                <key code="u" x="147" y="35" width="20" height="15" />
+                <key code="i" x="167" y="35" width="20" height="15" />
+                <key code="o" x="187" y="35" width="19" height="15" />
+                <key code="p" x="206" y="35" width="20" height="15" />
+                <key code="at" x="226" y="35" width="20" height="15" />
+                <key code="leftbracket" x="246" y="35" width="20" height="15" />
+                
+                <key code="return" x="271" y="35" width="23" height="30" />
+                
+                <key code="ctrl" x="0" y="50" width="35" height="15" />
+                <key code="a" x="35" y="50" width="20" height="15" />
+                <key code="s" x="55" y="50" width="20" height="15" />
+                <key code="d" x="75" y="50" width="19" height="15" />
+                <key code="f" x="94" y="50" width="20" height="15" />
+                <key code="g" x="114" y="50" width="20" height="15" />
+                <key code="h" x="134" y="50" width="19" height="15" />
+                <key code="j" x="153" y="50" width="20" height="15" />
+                <key code="k" x="173" y="50" width="20" height="15" />
+                <key code="l" x="193" y="50" width="19" height="15" />
+                <key code="semicolon" x="212" y="50" width="20" height="15" />
+                <key code="colon" x="232" y="50" width="20" height="15" />
+                <key code="rightbracket" x="252" y="50" width="19" height="15" />
+                
+                <key code="leftshift" x="0" y="65" width="45" height="15" />
+                <key code="z" x="45" y="65" width="20" height="15" />
+                <key code="x" x="65" y="65" width="19" height="15" />
+                <key code="c" x="84" y="65" width="20" height="15" />
+                <key code="v" x="104" y="65" width="20" height="15" />
+                <key code="b" x="124" y="65" width="19" height="15" />
+                <key code="n" x="143" y="65" width="20" height="15" />
+                <key code="m" x="163" y="65" width="20" height="15" />
+                <key code="comma" x="183" y="65" width="19" height="15" />
+                <key code="period" x="202" y="65" width="20" height="15" />
+                <key code="div" x="222" y="65" width="20" height="15" />
+                <key code="underscore" x="242" y="65" width="19" height="15" />
+                <key code="rightshift" x="261" y="65" width="35" height="15" />
+                
+                <key code="caps" x="45" y="80" width="20" height="15" />
+                <key code="graph" x="65" y="80" width="19" height="15" />
+                <key code="torikeshi" x="84" y="80" width="20" height="15" />
+                <key code="space" x="104" y="80" width="98" height="15" />
+                <key code="jikkou" x="202" y="80" width="40" height="15" />
+                <key code="code" x="242" y="80" width="19" height="15" />
+                <key code="pause" x="261" y="80" width="35" height="15" />
+                
+                <key code="left" x="301" y="76" width="25" height="22" />
+                <key code="up" x="326" y="68" width="29" height="17" />
+                <key code="down" x="326" y="85" width="29" height="21" />
+                <key code="right" x="355" y="76" width="24" height="22" />
+                
+                <key code="num7" x="301" y="0" width="19" height="15" />
+                <key code="num8" x="320" y="0" width="20" height="15" />
+                <key code="num9" x="340" y="0" width="20" height="15" />
+                <key code="numdiv" x="360" y="0" width="19" height="15" />
+                <key code="num4" x="301" y="15" width="19" height="15" />
+                <key code="num5" x="320" y="15" width="20" height="15" />
+                <key code="num6" x="340" y="15" width="20" height="15" />
+                <key code="nummul" x="360" y="15" width="19" height="15" />
+                <key code="num1" x="301" y="30" width="19" height="15" />
+                <key code="num2" x="320" y="30" width="20" height="15" />
+                <key code="num3" x="340" y="30" width="20" height="15" />
+                <key code="numsub" x="360" y="30" width="19" height="15" />
+                <key code="num0" x="301" y="45" width="19" height="15" />
+                <key code="numperiod" x="320" y="45" width="20" height="15" />
+                <key code="numcomma" x="340" y="45" width="20" height="15" />
+                <key code="numadd" x="360" y="45" width="19" height="15" />
+            </keyboard>
+	    </block>
+        </page>
+    </window>
+</bluemsxtheme>

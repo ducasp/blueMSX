@@ -1,0 +1,476 @@
+<bluemsxtheme name="DIGIblue SUITE-X2">
+<!--
+  DIGIBlue SUITE-X2 is a official theme designed to work with blueMSX v2.4.
+  Theme scripting is based on the v2.4 specification and may not be supported in future release.
+																			 	
+	Copyright 2004-2005 Ray Zero (Concept & Design)
+		
+  A special thanks blueMSX members for their input and encouragement.
+-->
+    <!--======== Normal window size theme ========-->
+    <theme mode="normal" type="multipage" frame="0">
+
+        <page width="800" height="650" name="EmuAndStatus">
+	<clipregion>
+		<point x="4" y="0"/>
+		<point x="796" y="0"/>
+		<point x="797" y="1"/>
+		<point x="798" y="1"/>
+		<point x="799" y="2"/>
+		<point x="799" y="3"/>
+		<point x="800" y="4"/>
+		<point x="800" y="645"/>
+		<point x="799" y="646"/>
+		<point x="799" y="647"/>
+		<point x="798" y="648"/>
+		<point x="797" y="649"/>
+		<point x="796" y="649"/>
+		<point x="5" y="650"/>
+		<point x="4" y="649"/>
+		<point x="3" y="649"/>
+		<point x="2" y="648"/>
+		<point x="1" y="647"/>
+		<point x="1" y="646"/>
+		<point x="0" y="645"/>
+		<point x="0" y="4"/>
+		<point x="1" y="3"/>
+		<point x="1" y="2"/>
+		<point x="2" y="1"/>
+	</clipregion>
+            <menu x="22" y="26" bgcolor="6D8694" fgcolor="FFFFFF" focuscolor="066190"/>
+            	<emuwindow x="78" y="96"/>
+    	    	<dragimage x="0" y="0" activenotify="1" src="x2-top.bmp"/>
+    	    	<dragimage x="0" y="637"src="x2-foot.bmp"/>
+
+	        <button x="775" y="4" activenotify="1" src="CLOSE-BUTTON.bmp" action="theme-close"/>
+	        <button x="755" y="4" activenotify="1" src="MIN-BUTTON.bmp" action="theme-minimize"/>
+
+	        <!-- Media Block -->
+		<block x="0" y="24">
+	        <dragimage x="0" y="0" src="mediapanel.bmp"/>    
+
+	        <led x="25" y="39" src="leds/RESET-LED.bmp" trigger="not emu-stopped"/>
+
+	        <button x="113" y="37" src="buttons/PLAY-BUTTON.bmp" action="emu-togglepause" visible="not emu-running"/>
+	        <button x="135" y="37" src="buttons/PAUSE-BUTTON.bmp" action="emu-togglepause" visible="emu-running"/>
+	        <button x="156" y="37" src="buttons/STOP-BUTTON.bmp" action="emu-stop" visible="not emu-stopped"/>
+
+	        <!-- Tool Bar -->
+	        <dualbutton x="49" y="32" src="buttons/RESET-BUTTON.bmp" action1="emu-resethard" action2="menu-reset" arg2x="80" arg2y="50"/>
+                <dualbutton x="189" y="37" src="buttons/MONITOR-BUTTON.bmp" action1="window-small" action2="menu-windowsize" arg2x="190" arg2y="50"/>
+	        <dualbutton x="216" y="37" src="buttons/CONFIG-BUTTON.bmp" action1="dlg-emulation" action2="menu-options" arg2x="215" arg2y="50"/>
+	        <button x="243" y="36" src="buttons/HELP-BUTTON.bmp" action="dlg-help"/>
+        	
+	        <!--media control-->
+	        <dualbutton x="490" y="44" src="buttons/SLOT-BUTTON.bmp" action1="cart1-insert" action2="menu-cart1" arg2x="480" arg2y="60"/>
+	        <dualbutton x="539" y="44" src="buttons/SLOT-BUTTON.bmp" action1="cart2-insert" action2="menu-cart2" arg2x="530" arg2y="60"/>
+	        <dualbutton x="608" y="44" src="buttons/SLOT-BUTTON.bmp" action1="menu-harddisk" action2="menu-harddisk" arg1x="600" arg1y="60" arg2x="600" arg2y="60"/>
+	        <dualbutton x="516" y="30" src="buttons/FDD-BUTTON.bmp" action1="diska-insert" action2="menu-diska" arg2x="505" arg2y="40"/>
+	        <dualbutton x="565" y="30" src="buttons/FDD-BUTTON.bmp" action1="diskb-insert" action2="menu-diskb" arg2x="555" arg2y="40"/>
+	        <dualbutton x="634" y="30" src="buttons/FDD-BUTTON.bmp" action1="cas-insert" action2="menu-cassette" arg2x="625" arg2y="40"/>
+		    <button x="682" y="31" src="buttons/REWIND-BUTTON.bmp" action="cas-rewind"/>
+		</block>
+
+	        <!-- Monitor Block -->
+		<block x="0" y="88">
+	        <dragimage x="0" y="0" src="monitorpanel.bmp"/>
+	        <image x="764" y="422" src="buttons/SWITCHER-BUTTON-SELECTED.bmp"/>
+		<button x="24" y="422" src="buttons/SWITCHER-BUTTON.bmp" action="switch-frontswitch"/>
+		<button x="12" y="436" src="buttons/SWITCHER-BUTTON.bmp" action="switch-audioswitch"/>
+		<button x="24" y="450" src="buttons/SWITCHER-BUTTON.bmp" action="switch-pauseswitch"/>
+	        <button x="760" y="358" src="buttons/TOGGLE-BUTTON.bmp" action="dlg-mixer"/>
+	        <button x="764" y="450" src="buttons/SWITCHER-BUTTON.bmp" action="theme-setpage" arga="EmuAndVideo"/>
+	        <button x="776" y="436" src="buttons/SWITCHER-BUTTON.bmp" action="theme-setpage" arga="EmuAndKeyboard"/>
+	        <button x="760" y="386" src="buttons/TOGGLE-BUTTON.bmp" action="dlg-keyboardeditor"/>
+
+		<led x="729" y="14" src="leds/TINY-LED.bmp" trigger="led-diska"/>
+		<led x="729" y="26" src="leds/TINY-LED.bmp" trigger="led-diskb"/>
+		<led x="729" y="38" src="leds/TINY-LED.bmp" trigger="led-cassette"/>
+		<led x="729" y="50" src="leds/TINY-LED.bmp" trigger="led-hd"/>
+
+            	<led x="61" y="14" src="leds/TINY-LED.bmp" trigger="led-caps"/>
+            	<led x="61" y="26" src="leds/TINY-LED.bmp" trigger="led-kana"/>
+            	<led x="61" y="38" src="leds/TINY-LED.bmp" trigger="led-turbor"/>
+
+            	<led x="61" y="425" src="leds/TINY-LED.bmp" trigger="led-frontswitch"/>
+            	<led x="61" y="437" src="leds/TINY-LED.bmp" trigger="led-audioswitch"/>
+            	<led x="61" y="449" src="leds/TINY-LED.bmp" trigger="led-pauseswitch"/>
+		</block>
+
+		<block x="0" y="584">
+	    	<dragimage x="0" y="0" src="statusbar.bmp"/>
+		<button x="743" y="22" src="buttons/NORMSPEED-BUTTON.bmp" action="emu-normalspeed"/>
+	        <slider x="693" y="8" src="sliders/CLOCK-DIAL.bmp" max="61" trigger="slider-emuspeed" action="slider-emuspeed" direction="horizonal" sensitivity="2"/>
+	        <text x="75" y="7" align="right" width="91" startchar="32" charcount="224" src="fonts/FONT.bmp" visible="not emu-stopped" trigger="text-runningname"/>
+	        <text x="75" y="7" align="right" width="91" startchar="32" charcount="224" src="fonts/FONT.bmp" visible="emu-stopped" trigger="text-buildandversion"/>
+
+	        <text x="429" y="28" align="right" width="32" startchar="32" charcount="224" src="fonts/FONT.bmp" trigger="text-machinename"/>
+	        <text x="348" y="28" align="right" width="12" startchar="32" charcount="224"src="fonts/FONT.bmp" trigger="text-rommapper1"/>
+	        <text x="300" y="28" align="right" width="6" startchar="32" charcount="224" src="fonts/FONT.bmp" trigger="text-ramsize"/>
+	        <text x="243" y="28" align="right" width="6" startchar="32" charcount="224" src="fonts/FONT.bmp" trigger="text-vramsize"/>
+
+	        <text x="72" y="28" align="right" width="6" startchar="32" charcount="224" src="fonts/FONT.bmp" trigger="text-cpuusage"/>
+	        <text x="129" y="28" align="right" width="6" startchar="32" charcount="224" src="fonts/FONT.bmp" trigger="text-framespersecond"/>
+	        <text x="186" y="28" align="right" width="6" startchar="32" charcount="224" src="fonts/FONT.bmp" trigger="text-screentypeshort"/>
+	        <text x="637" y="7" align="right" width="6" startchar="32" charcount="224" src="fonts/FONT.bmp" trigger="text-emufrequency"/>
+		</block>
+</page>
+
+        <page width="800" height="715" name="EmuAndVideo">
+	<clipregion>
+		<point x="4" y="0"/>
+		<point x="796" y="0"/>
+		<point x="797" y="1"/>
+		<point x="798" y="1"/>
+		<point x="799" y="2"/>
+		<point x="799" y="3"/>
+		<point x="800" y="4"/>
+		<point x="800" y="710"/>
+		<point x="799" y="711"/>
+		<point x="799" y="712"/>
+		<point x="798" y="713"/>
+		<point x="797" y="714"/>
+		<point x="796" y="714"/>
+		<point x="5" y="715"/>
+		<point x="4" y="714"/>
+		<point x="3" y="714"/>
+		<point x="2" y="713"/>
+		<point x="1" y="712"/>
+		<point x="1" y="711"/>
+		<point x="0" y="710"/>
+		<point x="0" y="4"/>
+		<point x="1" y="3"/>
+		<point x="1" y="2"/>
+		<point x="2" y="1"/>
+	</clipregion>
+            <menu x="22" y="26" bgcolor="6D8694" fgcolor="FFFFFF" focuscolor="066190"/>
+            	<emuwindow x="78" y="96"/>
+    	    	<dragimage x="0" y="0" activenotify="1" src="x2-top.bmp"/>
+    	    	<dragimage x="0" y="702"src="x2-foot.bmp"/>
+
+	        <button x="775" y="4" activenotify="1" src="CLOSE-BUTTON.bmp" action="theme-close"/>
+	        <button x="755" y="4" activenotify="1" src="MIN-BUTTON.bmp" action="theme-minimize"/>
+
+	        <!-- Media Block -->
+		<block x="0" y="24">
+	        <dragimage x="0" y="0" src="mediapanel.bmp"/>    
+
+	        <led x="25" y="39" src="leds/RESET-LED.bmp" trigger="not emu-stopped"/>
+
+	        <button x="113" y="37" src="buttons/PLAY-BUTTON.bmp" action="emu-togglepause" visible="not emu-running"/>
+	        <button x="135" y="37" src="buttons/PAUSE-BUTTON.bmp" action="emu-togglepause" visible="emu-running"/>
+	        <button x="156" y="37" src="buttons/STOP-BUTTON.bmp" action="emu-stop" visible="not emu-stopped"/>
+
+	        <!-- Tool Bar -->
+	        <dualbutton x="49" y="32" src="buttons/RESET-BUTTON.bmp" action1="emu-resethard" action2="menu-reset" arg2x="80" arg2y="50"/>
+                <dualbutton x="189" y="37" src="buttons/MONITOR-BUTTON.bmp" action1="window-small" action2="menu-windowsize" arg2x="190" arg2y="50"/>
+	        <dualbutton x="216" y="37" src="buttons/CONFIG-BUTTON.bmp" action1="dlg-emulation" action2="menu-options" arg2x="215" arg2y="50"/>
+	        <button x="243" y="36" src="buttons/HELP-BUTTON.bmp" action="dlg-help"/>
+        	
+	        <!--media control-->
+	        <dualbutton x="490" y="44" src="buttons/SLOT-BUTTON.bmp" action1="cart1-insert" action2="menu-cart1" arg2x="480" arg2y="60"/>
+	        <dualbutton x="539" y="44" src="buttons/SLOT-BUTTON.bmp" action1="cart2-insert" action2="menu-cart2" arg2x="530" arg2y="60"/>
+	        <dualbutton x="608" y="44" src="buttons/SLOT-BUTTON.bmp" action1="menu-harddisk" action2="menu-harddisk" arg1x="600" arg1y="60" arg2x="600" arg2y="60"/>
+	        <dualbutton x="516" y="30" src="buttons/FDD-BUTTON.bmp" action1="diska-insert" action2="menu-diska" arg2x="505" arg2y="40"/>
+	        <dualbutton x="565" y="30" src="buttons/FDD-BUTTON.bmp" action1="diskb-insert" action2="menu-diskb" arg2x="555" arg2y="40"/>
+	        <dualbutton x="634" y="30" src="buttons/FDD-BUTTON.bmp" action1="cas-insert" action2="menu-cassette" arg2x="625" arg2y="40"/>
+		    <button x="682" y="31" src="buttons/REWIND-BUTTON.bmp" action="cas-rewind"/>
+		</block>
+
+	        <!-- Monitor Block -->
+		<block x="0" y="88">
+	        <dragimage x="0" y="0" src="monitorpanel.bmp"/>
+	        <image x="764" y="450" src="buttons/SWITCHER-BUTTON-SELECTED.bmp"/>
+		<button x="24" y="422" src="buttons/SWITCHER-BUTTON.bmp" action="switch-frontswitch"/>
+		<button x="12" y="436" src="buttons/SWITCHER-BUTTON.bmp" action="switch-audioswitch"/>
+		<button x="24" y="450" src="buttons/SWITCHER-BUTTON.bmp" action="switch-pauseswitch"/>
+	        <button x="764" y="422" src="buttons/SWITCHER-BUTTON.bmp" action="theme-setpage" arga="EmuAndStatus"/>
+	        <button x="760" y="358" src="buttons/TOGGLE-BUTTON.bmp" action="dlg-mixer"/>
+	        <button x="776" y="436" src="buttons/SWITCHER-BUTTON.bmp" action="theme-setpage" arga="EmuAndKeyboard"/>
+	        <button x="760" y="386" src="buttons/TOGGLE-BUTTON.bmp" action="dlg-keyboardeditor"/>
+
+		<led x="729" y="14" src="leds/TINY-LED.bmp" trigger="led-diska"/>
+		<led x="729" y="26" src="leds/TINY-LED.bmp" trigger="led-diskb"/>
+		<led x="729" y="38" src="leds/TINY-LED.bmp" trigger="led-cassette"/>
+		<led x="729" y="50" src="leds/TINY-LED.bmp" trigger="led-hd"/>
+
+            	<led x="61" y="14" src="leds/TINY-LED.bmp" trigger="led-caps"/>
+            	<led x="61" y="26" src="leds/TINY-LED.bmp" trigger="led-kana"/>
+            	<led x="61" y="38" src="leds/TINY-LED.bmp" trigger="led-turbor"/>
+
+            	<led x="61" y="425" src="leds/TINY-LED.bmp" trigger="led-frontswitch"/>
+            	<led x="61" y="437" src="leds/TINY-LED.bmp" trigger="led-audioswitch"/>
+            	<led x="61" y="449" src="leds/TINY-LED.bmp" trigger="led-pauseswitch"/>
+		</block>
+
+	        <!-- Video Bar -->
+		<block x="0" y="584">
+	    	<dragimage x="0" y="0" src="video-block/tvpanel.bmp"/>
+
+		<slider x="491" y="42" src="video-block/Color-dail.bmp" max="4" trigger="video-colormode" action="video-colormode" direction="vertical" sensitivity="6"/>
+		<slider x="671" y="46" src="video-block/Moni2Selection.bmp" max="4" trigger="video-colormode" action="video-colormode" direction="vertical" mode="inverted" sensitivity="6"/>
+	        <slider x="431" y="42" src="video-block/Tv-dail.bmp" max="8" trigger="video-filter" action="video-filter" direction="vertical" sensitivity="8"/>
+	        <slider x="612" y="46" src="video-block/Moni1Selection.bmp" max="8" trigger="video-filter" action="video-filter" direction="vertical" mode="inverted" sensitivity="8"/>
+
+	        <slider x="153" y="6" src="video-block/SliderFXcontrol.bmp" max="63" trigger="video-gamma" action="video-gamma" direction="vertical" sensitivity="1"/>
+	        <slider x="172" y="6" src="video-block/SliderFXcontrol.bmp" max="63" trigger="video-brightness" action="video-brightness" direction="vertical" sensitivity="1"/>
+	        <slider x="191" y="6" src="video-block/SliderFXcontrol.bmp" max="63" trigger="video-contrast" action="video-contrast" direction="vertical" sensitivity="1"/>
+	        <slider x="210" y="6" src="video-block/SliderFXcontrol.bmp" max="63" trigger="video-saturation" action="video-saturation" direction="vertical" sensitivity="1"/>
+
+	        <slider x="331" y="6" src="video-block/SliderFXcontrol.bmp" max="63" trigger="video-scanlines" action="video-scanlines" direction="vertical" sensitivity="1"/>
+	        <slider x="351" y="6" src="video-block/SliderRFcontrol.bmp" max="5" trigger="video-rfmodulation" action="video-rfmodulation" direction="vertical" sensitivity="10"/>
+
+	        <text x="263" y="8" align="right" width="5" src="fonts/GREYFONT.bmp" startchar="32" charcount="224" trigger="text-videogamma"/>
+	        <text x="263" y="28" align="right" width="5" src="fonts/GREYFONT.bmp" startchar="32" charcount="224" trigger="text-videobrightness"/>
+	        <text x="263" y="48" align="right" width="5" src="fonts/GREYFONT.bmp" startchar="32" charcount="224" trigger="text-videocontrast"/>
+	        <text x="263" y="68" align="right" width="5" src="fonts/GREYFONT.bmp" startchar="32" charcount="224" trigger="text-videosaturation"/>
+	        <text x="263" y="96" align="right" width="5" src="fonts/GREYFONT.bmp" startchar="32" charcount="224" trigger="text-scanlinespct"/>
+
+	        <togglebutton x="330" y="100" src="video-block/scan-button1.bmp" trigger="status-scanlines" action="switch-videoscanlines"/>
+	        <togglebutton x="351" y="100" src="video-block/scan-button1.bmp" trigger="status-rfmodulation" action="switch-videorfmodulation"/>
+
+	        <togglebutton x="63" y="11" src="video-block/vidout-button2.bmp" trigger="status-hstretch" action="switch-videohstretch"/>
+	        <togglebutton x="63" y="34" src="video-block/vidout-button2.bmp" trigger="status-vstretch" action="switch-videovstretch"/>
+	        <togglebutton x="63" y="57" src="video-block/vidout-button2.bmp" trigger="status-deinterlace" action="switch-videodeinterlace"/>
+
+		<image x="622"  y="6" align="left" width="8" src="video-block/2ndmonitor.bmp" trigger="video-enable-mon2" visible="video-present-mon2"/>
+		<image x="413"  y="9" align="left" width="8" src="video-block/Lightup-led.bmp" trigger="video-enable-mon1" visible="video-enable-mon1"/>
+		<image x="413"  y="9" align="left" width="8" src="video-block/Normal-led.bmp" trigger="video-enable-mon2" visible="video-enable-mon2"/>
+		<image x="679"  y="9" align="left" width="8" src="video-block/Lightup-led.bmp" trigger="video-enable-mon2" visible="video-enable-mon2"/>
+
+	        <text x="683"  y="9" align="left" width="8" src="fonts/GREYFONT.bmp" startchar="32" charcount="224" trigger="text-videomonname2" visible="video-present-mon2"/>
+		<text x="417"  y="9" align="left" width="8" src="fonts/GREYFONT.bmp" startchar="32" charcount="224" trigger="text-videomonname1" visible="video-present-mon1"/>
+		<text x="417"  y="9" align="left" width="8" src="fonts/LIGHT-FONT.bmp" startchar="32" charcount="224" trigger="text-videomonname1" visible="video-enable-mon1"/>
+		<text x="683"  y="9" align="left" width="8" src="fonts/GREYFONT.bmp" startchar="32" charcount="224" trigger="text-videomonname2" visible="video-present-mon2"/>
+		<text x="683"  y="9" align="left" width="8" src="fonts/LIGHT-FONT.bmp" startchar="32" charcount="224" trigger="text-videomonname2" visible="video-enable-mon2"/>
+
+	        <text x="683"  y="9" align="left" width="8" src="fonts/GREYFONT.bmp" startchar="32" charcount="224" trigger="text-videomonname2" visible="video-present-mon2"/>
+		<text x="417"  y="9" align="left" width="8" src="fonts/GREYFONT.bmp" startchar="32" charcount="224" trigger="text-videomonname1" visible="video-present-mon1"/>
+		<text x="417"  y="9" align="left" width="8" src="fonts/LIGHT-FONT.bmp" startchar="32" charcount="224" trigger="text-videomonname1" visible="video-enable-mon1"/>
+		<text x="683"  y="9" align="left" width="8" src="fonts/GREYFONT.bmp" startchar="32" charcount="224" trigger="text-videomonname2" visible="video-present-mon2"/>
+		<text x="683"  y="9" align="left" width="8" src="fonts/LIGHT-FONT.bmp" startchar="32" charcount="224" trigger="text-videomonname2" visible="video-enable-mon2"/>
+
+	        <togglebutton x="481" y="9" src="video-block/vidout-button1.bmp" trigger="video-enable-mon1" action="video-enable-mon1" visible="video-present-mon1"/>
+	        <togglebutton x="655" y="9" src="video-block/vidout-button1.bmp" trigger="video-enable-mon2" action="video-enable-mon2" visible="video-present-mon2"/>
+	        <togglebutton x="655" y="9" src="video-block/vidout-button1.bmp" trigger="video-enable-mon3" action="video-enable-mon3" visible="video-present-mon3"/>
+
+		</block>
+        </page>
+
+        <page width="800" height="734" name="EmuAndKeyboard">
+	<clipregion>
+		<point x="4" y="0"/>
+		<point x="796" y="0"/>
+		<point x="797" y="1"/>
+		<point x="798" y="1"/>
+		<point x="799" y="2"/>
+		<point x="799" y="3"/>
+		<point x="800" y="4"/>
+		<point x="800" y="729"/>
+		<point x="799" y="730"/>
+		<point x="799" y="731"/>
+		<point x="798" y="732"/>
+		<point x="797" y="733"/>
+		<point x="796" y="733"/>
+		<point x="5" y="734"/>
+		<point x="4" y="733"/>
+		<point x="3" y="733"/>
+		<point x="2" y="732"/>
+		<point x="1" y="731"/>
+		<point x="1" y="730"/>
+		<point x="0" y="729"/>
+		<point x="0" y="4"/>
+		<point x="1" y="3"/>
+		<point x="1" y="2"/>
+		<point x="2" y="1"/>
+	</clipregion>
+            <menu x="22" y="26" bgcolor="6D8694" fgcolor="FFFFFF" focuscolor="066190"/>
+            	<emuwindow x="78" y="96"/>
+    	    	<dragimage x="0" y="0" activenotify="1" src="x2-top.bmp"/>
+    	    	<dragimage x="0" y="721"src="x2-foot.bmp"/>
+
+	        <button x="775" y="4" activenotify="1" src="CLOSE-BUTTON.bmp" action="theme-close"/>
+	        <button x="755" y="4" activenotify="1" src="MIN-BUTTON.bmp" action="theme-minimize"/>    
+            <menu x="22" y="26" bgcolor="6D8694" fgcolor="FFFFFF" focuscolor="066190"/>
+            	<emuwindow x="78" y="96"/>
+
+	        <!-- Media Block -->
+		<block x="0" y="24">
+	        <dragimage x="0" y="0" src="mediapanel.bmp"/>    
+
+	        <led x="25" y="39" src="leds/RESET-LED.bmp" trigger="not emu-stopped"/>
+
+	        <button x="113" y="37" src="buttons/PLAY-BUTTON.bmp" action="emu-togglepause" visible="not emu-running"/>
+	        <button x="135" y="37" src="buttons/PAUSE-BUTTON.bmp" action="emu-togglepause" visible="emu-running"/>
+	        <button x="156" y="37" src="buttons/STOP-BUTTON.bmp" action="emu-stop" visible="not emu-stopped"/>
+
+	        <!-- Tool Bar -->
+	        <dualbutton x="49" y="32" src="buttons/RESET-BUTTON.bmp" action1="emu-resethard" action2="menu-reset" arg2x="80" arg2y="50"/>
+                <dualbutton x="189" y="37" src="buttons/MONITOR-BUTTON.bmp" action1="window-small" action2="menu-windowsize" arg2x="190" arg2y="50"/>
+	        <dualbutton x="216" y="37" src="buttons/CONFIG-BUTTON.bmp" action1="dlg-emulation" action2="menu-options" arg2x="215" arg2y="50"/>
+	        <button x="243" y="36" src="buttons/HELP-BUTTON.bmp" action="dlg-help"/>
+        	
+	        <!--media control-->
+	        <dualbutton x="490" y="44" src="buttons/SLOT-BUTTON.bmp" action1="cart1-insert" action2="menu-cart1" arg2x="480" arg2y="60"/>
+	        <dualbutton x="539" y="44" src="buttons/SLOT-BUTTON.bmp" action1="cart2-insert" action2="menu-cart2" arg2x="530" arg2y="60"/>
+	        <dualbutton x="608" y="44" src="buttons/SLOT-BUTTON.bmp" action1="menu-harddisk" action2="menu-harddisk" arg1x="600" arg1y="60" arg2x="600" arg2y="60"/>
+	        <dualbutton x="516" y="30" src="buttons/FDD-BUTTON.bmp" action1="diska-insert" action2="menu-diska" arg2x="505" arg2y="40"/>
+	        <dualbutton x="565" y="30" src="buttons/FDD-BUTTON.bmp" action1="diskb-insert" action2="menu-diskb" arg2x="555" arg2y="40"/>
+	        <dualbutton x="634" y="30" src="buttons/FDD-BUTTON.bmp" action1="cas-insert" action2="menu-cassette" arg2x="625" arg2y="40"/>
+		    <button x="682" y="31" src="buttons/REWIND-BUTTON.bmp" action="cas-rewind"/>
+		</block>
+
+	        <!-- Monitor Block -->
+		<block x="0" y="88">
+	        <dragimage x="0" y="0" src="monitorpanel.bmp"/>
+	        <image x="776" y="436" src="buttons/SWITCHER-BUTTON-SELECTED.bmp"/>
+		<button x="24" y="422" src="buttons/SWITCHER-BUTTON.bmp" action="switch-frontswitch"/>
+		<button x="12" y="436" src="buttons/SWITCHER-BUTTON.bmp" action="switch-audioswitch"/>
+		<button x="24" y="450" src="buttons/SWITCHER-BUTTON.bmp" action="switch-pauseswitch"/>
+	        <button x="764" y="422" src="buttons/SWITCHER-BUTTON.bmp" action="theme-setpage" arga="EmuAndStatus"/>
+	        <button x="760" y="358" src="buttons/TOGGLE-BUTTON.bmp" action="dlg-mixer"/>
+	        <button x="764" y="450" src="buttons/SWITCHER-BUTTON.bmp" action="theme-setpage" arga="EmuAndVideo"/>
+	        <button x="760" y="386" src="buttons/TOGGLE-BUTTON.bmp" action="dlg-keyboardeditor"/>
+
+		<led x="729" y="14" src="leds/TINY-LED.bmp" trigger="led-diska"/>
+		<led x="729" y="26" src="leds/TINY-LED.bmp" trigger="led-diskb"/>
+		<led x="729" y="38" src="leds/TINY-LED.bmp" trigger="led-cassette"/>
+		<led x="729" y="50" src="leds/TINY-LED.bmp" trigger="led-hd"/>
+
+            	<led x="61" y="14" src="leds/TINY-LED.bmp" trigger="led-caps"/>
+            	<led x="61" y="26" src="leds/TINY-LED.bmp" trigger="led-kana"/>
+            	<led x="61" y="38" src="leds/TINY-LED.bmp" trigger="led-turbor"/>
+
+            	<led x="61" y="425" src="leds/TINY-LED.bmp" trigger="led-frontswitch"/>
+            	<led x="61" y="437" src="leds/TINY-LED.bmp" trigger="led-audioswitch"/>
+            	<led x="61" y="449" src="leds/TINY-LED.bmp" trigger="led-pauseswitch"/>
+		</block>
+
+
+	<block x="0" y="584">
+	    <dragimage x="0" y="0" src="virtualkeyboard.bmp"/>
+	        <text x="548" y="20" align="left" width="31" src="fonts/FONT.bmp" startchar="32" charcount="224" trigger="text-joyport1"/>
+	        <text x="548" y="46" align="left" width="31" src="fonts/FONT.bmp" startchar="32" charcount="224" trigger="text-joyport2"/>
+
+	        <button x="509" y="19" src="buttons/joybutton1.bmp" action="menu-joyport1" arga="500" argb="28"/>
+	        <button x="509" y="45" src="buttons/joybutton2.bmp" action="menu-joyport2" arga="500" argb="54"/>
+		<slider x="532" y="70" src="sliders/renshaslider.bmp" max="11" srcColumns="1" trigger="slider-rensha" action="slider-rensha" direction="horizontal" sensitivity="16"/>
+
+            <keyboard x ="76" y="11" src="Turbo R/G-keyboard.bmp">
+                <key code="f1"              x="0"   y="0"   width="27" height="25"/>
+                <key code="f2"              x="28"  y="0"   width="27" height="25"/>
+                <key code="f3"              x="56"  y="0"   width="27" height="25"/>
+                <key code="f4"              x="84"  y="0"   width="27" height="25"/>
+                <key code="f5"              x="112" y="0"   width="27" height="25"/>
+                
+                <key code="stop"            x="140" y="4"   width="31" height="17"/>
+                <key code="cls"             x="172" y="4"   width="31" height="17"/>
+                <key code="select"          x="204" y="4"   width="31" height="17"/>
+                <key code="ins"             x="236" y="4"   width="31" height="17"/>
+                <key code="del"             x="268" y="4"   width="31" height="17"/>
+                
+                <key code="esc"             x="0"   y="30"  width="27" height="17"/>
+                <key code="1"               x="28"  y="30"  width="17" height="17"/>
+                <key code="2"               x="46"  y="30"  width="17" height="17"/>
+                <key code="3"               x="64"  y="30"  width="17" height="17"/>
+                <key code="4"               x="82"  y="30"  width="17" height="17"/>
+                <key code="5"               x="100" y="30"  width="17" height="17"/>
+                <key code="6"               x="118" y="30"  width="17" height="17"/>
+                <key code="7"               x="136" y="30"  width="17" height="17"/>
+                <key code="8"               x="154" y="30"  width="17" height="17"/>
+                <key code="9"               x="172" y="30"  width="17" height="17"/>
+                <key code="0"               x="190" y="30"  width="17" height="17"/>
+                <key code="neg"             x="208" y="30"  width="17" height="17"/>
+                <key code="circomflex"      x="226" y="30"  width="17" height="17"/>
+                <key code="backslash"       x="244" y="30"  width="17" height="17"/>
+                <key code="backspace"       x="262" y="30"  width="27" height="17"/>
+                
+                <key code="tab"             x="0"   y="48"  width="35" height="17"/>
+                <key code="q"               x="36"  y="48"  width="17" height="17"/>
+                <key code="w"               x="54"  y="48"  width="17" height="17"/>
+                <key code="e"               x="72"  y="48"  width="17" height="17"/>
+                <key code="r"               x="90"  y="48"  width="17" height="17"/>
+                <key code="t"               x="108" y="48"  width="17" height="17"/>
+                <key code="y"               x="126" y="48"  width="17" height="17"/>
+                <key code="u"               x="144" y="48"  width="17" height="17"/>
+                <key code="i"               x="162" y="48"  width="17" height="17"/>
+                <key code="o"               x="180" y="48"  width="17" height="17"/>
+                <key code="p"               x="198" y="48"  width="17" height="17"/>
+                <key code="at"              x="216" y="48"  width="17" height="17"/>
+                <key code="leftbracket"     x="234" y="48"  width="17" height="17"/>
+                <key code="return"          x="258" y="48"  width="23" height="35"/>
+                
+                <key code="ctrl"            x="0"   y="66"  width="41" height="17"/>
+                <key code="a"               x="42"  y="66"  width="17" height="17"/>
+                <key code="s"               x="60"  y="66"  width="17" height="17"/>
+                <key code="d"               x="78"  y="66"  width="17" height="17"/>
+                <key code="f"               x="96"  y="66"  width="17" height="17"/>
+                <key code="g"               x="114" y="66"  width="17" height="17"/>
+                <key code="h"               x="132" y="66"  width="17" height="17"/>
+                <key code="j"               x="150" y="66"  width="17" height="17"/>
+                <key code="k"               x="168" y="66"  width="17" height="17"/>
+                <key code="l"               x="186" y="66"  width="17" height="17"/>
+                <key code="semicolon"       x="204" y="66"  width="17" height="17"/>
+                <key code="colon"           x="222" y="66"  width="17" height="17"/>
+                <key code="rightbracket"    x="240" y="66"  width="17" height="17"/>
+                
+                <key code="leftshift"       x="12"  y="84"  width="35" height="17"/>
+                <key code="z"               x="48"  y="84"  width="17" height="17"/>
+                <key code="x"               x="66"  y="84"  width="17" height="17"/>
+                <key code="c"               x="84"  y="84"  width="17" height="17"/>
+                <key code="v"               x="102" y="84"  width="17" height="17"/>
+                <key code="b"               x="120" y="84"  width="17" height="17"/>
+                <key code="n"               x="138" y="84"  width="17" height="17"/>
+                <key code="m"               x="156" y="84"  width="17" height="17"/>
+                <key code="comma"           x="174" y="84"  width="17" height="17"/>
+                <key code="period"          x="192" y="84"  width="17" height="17"/>
+                <key code="div"             x="210" y="84"  width="17" height="17"/>
+                <key code="underscore"      x="228" y="84"  width="17" height="17"/>
+                <key code="rightshift"      x="246" y="84"  width="35" height="17"/>
+                
+                <key code="caps"            x="17"  y="100" width="29" height="17"/>
+                <key code="graph"           x="47"  y="100" width="29" height="17"/>
+                <key code="torikeshi"       x="77"  y="100" width="29" height="17"/>
+                <key code="space"           x="107" y="100" width="85" height="17"/>
+                <key code="jikkou"          x="193" y="100" width="29" height="17"/>
+                <key code="code"            x="223" y="100" width="29" height="17"/>
+                <key code="pause"           x="253" y="100" width="35" height="17"/>
+                
+                <key code="left"            x="304" y="80"  width="17" height="35"/>
+                <key code="up"              x="322" y="80"  width="35" height="17"/>
+                <key code="down"            x="322" y="98"  width="35" height="17"/>
+                <key code="right"           x="356" y="80"  width="17" height="35"/>
+                
+                <key code="num7"            x="302" y="8"  width="17" height="17"/>
+                <key code="num8"            x="320" y="8"  width="17" height="17"/>
+                <key code="num9"            x="338" y="8"  width="17" height="17"/>
+                <key code="numdiv"          x="356" y="8"  width="17" height="17"/>
+                <key code="num4"            x="302" y="26"  width="17" height="17"/>
+                <key code="num5"            x="320" y="26"  width="17" height="17"/>
+                <key code="num6"            x="338" y="26"  width="17" height="17"/>
+                <key code="nummul"          x="356" y="26"  width="17" height="17"/>
+                <key code="num1"            x="302" y="44"  width="17" height="17"/>
+                <key code="num2"            x="320" y="44"  width="17" height="17"/>
+                <key code="num3"            x="338" y="44"  width="17" height="17"/>
+                <key code="numsub"          x="356" y="44"  width="17" height="17"/>
+                <key code="num0"            x="302" y="62"  width="17" height="17"/>
+                <key code="numperiod"       x="320" y="62"  width="17" height="17"/>
+                <key code="numcomma"        x="338" y="62"  width="17" height="17"/>
+                <key code="numadd"          x="356" y="62"  width="17" height="17"/>
+            </keyboard>
+	</block>
+        </page>
+
+    </theme>
+
+    <!--======== Fullscreen size theme ========-->
+    <theme mode="fullscreen">
+ 
+        <emuwindow x="0" y="0"/>
+        <menu bgcolor="6D8694" fgcolor="FFFFFF" focuscolor="066190"/>
+    	<image x="0" y="0" src="fullscreen-bk.bmp"/>
+	<!--text x="225" y="451" align="left" width="31" startchar="32" charcount="224" src="fonts/GREYFONT.bmp" visible="emu-stopped" trigger="text-buildandversion"/-->
+
+    </theme>
+
+</bluemsxtheme>

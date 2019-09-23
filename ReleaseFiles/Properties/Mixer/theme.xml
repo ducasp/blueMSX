@@ -1,0 +1,156 @@
+<bluemsxtheme name="blueMSX - Sound Mixer">
+    <window name="blueMSX - Sound Mixer" type="multipage" frame="0">
+        <page width="544" height="160" name="MixerOpen">
+	<clipregion>
+		<point x="4" y="0"/>
+		<point x="540" y="0"/>
+		<point x="541" y="1"/>
+		<point x="542" y="1"/>
+		<point x="543" y="2"/>
+		<point x="543" y="3"/>
+		<point x="544" y="4"/>
+		<point x="544" y="155"/>
+		<point x="543" y="156"/>
+		<point x="543" y="157"/>
+		<point x="542" y="158"/>
+		<point x="541" y="159"/>
+		<point x="540" y="159"/>
+		<point x="5" y="160"/>
+		<point x="4" y="159"/>
+		<point x="3" y="159"/>
+		<point x="2" y="158"/>
+		<point x="1" y="157"/>
+		<point x="1" y="156"/>
+		<point x="0" y="155"/>
+		<point x="0" y="4"/>
+		<point x="1" y="3"/>
+		<point x="1" y="2"/>
+		<point x="2" y="1"/>
+	</clipregion>
+
+	    <block x="0" y="0">
+
+    	    <dragimage x="0" y="0" activenotify="1" src="MixerTop.bmp"/>
+    	    <dragimage x="0" y="24" src="MixerMain.bmp"/>
+    	    <dragimage x="0" y="148" src="MixerBottom.bmp"/>
+
+	        <button x="519" y="4" activenotify="1" src="switches/CLOSE-BUTTON.bmp" action="theme-close"/>
+	        <button x="499" y="4" activenotify="1" src="switches/MIN-BUTTON.bmp" action="theme-minimize"/>
+		<button x="5" y="4" activenotify="1" src="switches/SHUT-BUTTON.bmp" action="theme-setpage" arga="MixerClose"/>
+
+            <slider x="480" y="87" src="sliders/VOLUME-DIAL.bmp" max="20" trigger="level-master" action="level-master" direction="vertical" sensitivity="4"/>
+	        
+	        <slider x="24" y="56" src="sliders/VOLUME-BAR.bmp" max="28" trigger="level-psg" action="level-psg" direction="vertical" sensitivity="2"/>
+	        <slider x="68" y="56" src="sliders/VOLUME-BAR.bmp" max="28" trigger="level-scc" action="level-scc" direction="vertical" sensitivity="2"/>
+	        <slider x="112" y="56" src="sliders/VOLUME-BAR.bmp" max="28" trigger="level-pcm" action="level-pcm" direction="vertical" sensitivity="2"/>
+	        <slider x="156" y="56" src="sliders/VOLUME-BAR.bmp" max="28" trigger="level-msxmusic" action="level-msxmusic" direction="vertical" sensitivity="2"/>
+	        <slider x="200" y="56" src="sliders/VOLUME-BAR.bmp" max="28" trigger="level-msxaudio" action="level-msxaudio" direction="vertical" sensitivity="2"/>
+	        <slider x="244" y="56" src="sliders/VOLUME-BAR.bmp" max="28" trigger="level-moonsound" action="level-moonsound" direction="vertical" sensitivity="2"/>
+	        <slider x="288" y="56" src="sliders/VOLUME-BAR.bmp" max="28" trigger="level-sfg" action="level-sfg" direction="vertical" sensitivity="2"/>
+	        <slider x="332" y="56" src="sliders/VOLUME-BAR.bmp" max="28" trigger="level-keyboard" action="level-keyboard" direction="vertical" sensitivity="2"/>
+	        <slider x="376" y="56" src="sliders/VOLUME-BAR.bmp" max="28" trigger="level-io" action="level-io" direction="vertical" sensitivity="2"/>
+	        <slider x="420" y="56" src="sliders/VOLUME-BAR.bmp" max="28" trigger="level-midi" action="level-midi" direction="vertical" sensitivity="2"/>
+
+	        <slider x="10" y="29" src="sliders/PAN-DIAL.bmp" max="21" trigger="pan-psg" action="pan-psg" direction="vertical" sensitivity="3"/>
+	        <slider x="54" y="29" src="sliders/PAN-DIAL.bmp" max="21" trigger="pan-scc" action="pan-scc" direction="vertical" sensitivity="3"/>
+	        <slider x="98" y="29" src="sliders/PAN-DIAL.bmp" max="21" trigger="pan-pcm" action="pan-pcm" direction="vertical" sensitivity="3"/>
+	        <slider x="142" y="29" src="sliders/PAN-DIAL.bmp" max="21" trigger="pan-msxmusic" action="pan-msxmusic" direction="vertical" sensitivity="3"/>
+	        <slider x="186" y="29" src="sliders/PAN-DIAL.bmp" max="21" trigger="pan-msxaudio" action="pan-msxaudio" direction="vertical" sensitivity="3"/>
+	        <slider x="230" y="29" src="sliders/PAN-DIAL.bmp" max="21" trigger="pan-moonsound" action="pan-moonsound" direction="vertical" sensitivity="3"/>
+	        <slider x="274" y="29" src="sliders/PAN-DIAL.bmp" max="21" trigger="pan-sfg" action="pan-sfg" direction="vertical" sensitivity="3"/>
+	        <slider x="318" y="29" src="sliders/PAN-DIAL.bmp" max="21" trigger="pan-keyboard" action="pan-keyboard" direction="vertical" sensitivity="3"/>
+	        <slider x="362" y="29" src="sliders/PAN-DIAL.bmp" max="21" trigger="pan-io" action="pan-io" direction="vertical" sensitivity="3"/>
+	        <slider x="406" y="29" src="sliders/PAN-DIAL.bmp" max="21" trigger="pan-midi" action="pan-midi" direction="vertical" sensitivity="3"/>
+
+	        <meter x="6" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-psg-left"/>
+	        <meter x="13" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-psg-right"/>
+	        <meter x="50" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-scc-left"/>
+	        <meter x="57" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-scc-right"/>
+	        <meter x="94" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-pcm-left"/>
+	        <meter x="101" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-pcm-right"/>
+	        <meter x="138" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-msxmusic-left"/>
+	        <meter x="145" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-msxmusic-right"/>
+	        <meter x="182" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-msxaudio-left"/>
+	        <meter x="189" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-msxaudio-right"/>
+	        <meter x="226" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-moonsound-left"/>
+	        <meter x="233" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-moonsound-right"/>
+	        <meter x="270" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-sfg-left"/>
+	        <meter x="277" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-sfg-right"/>
+	        <meter x="314" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-keyboard-left"/>
+	        <meter x="321" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-keyboard-right"/>
+	        <meter x="358" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-io-left"/>
+	        <meter x="365" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-io-right"/>
+	        <meter x="402" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-midi-left"/>
+	        <meter x="409" y="57" max="19" src="leds/SMALL-VOLUME-LED.bmp" trigger="volume-midi-right"/>
+
+	        <meter x="446" y="57" max="19" src="leds/LARGE-VOLUME-LED.bmp" trigger="volume-master-left"/>
+	        <meter x="459" y="57" max="19" src="leds/LARGE-VOLUME-LED.bmp" trigger="volume-master-right"/>
+
+	        <button x="32" y="136" src="switches/MUTE-SWITCH.bmp" action="audio-togglemutepsg" visible="enable-psg"/>
+	        <button x="32" y="136" src="switches/MUTE-SWITCH2.bmp" action="audio-togglemutepsg" visible="not enable-psg"/>
+	        <button x="76" y="136" src="switches/MUTE-SWITCH.bmp" action="audio-togglemutescc" visible="enable-scc"/>
+	        <button x="76" y="136" src="switches/MUTE-SWITCH2.bmp" action="audio-togglemutescc" visible="not enable-scc"/>
+	        <button x="120" y="136" src="switches/MUTE-SWITCH.bmp" action="audio-togglemutepcm" visible="enable-pcm"/>
+	        <button x="120" y="136" src="switches/MUTE-SWITCH2.bmp" action="audio-togglemutepcm" visible="not enable-pcm"/>
+	        <button x="164" y="136" src="switches/MUTE-SWITCH.bmp" action="audio-togglemutemsxmusic" visible="enable-msxmusic"/>
+	        <button x="164" y="136" src="switches/MUTE-SWITCH2.bmp" action="audio-togglemutemsxmusic" visible="not enable-msxmusic"/>
+	        <button x="208" y="136" src="switches/MUTE-SWITCH.bmp" action="audio-togglemutemsxaudio" visible="enable-msxaudio"/>
+	        <button x="208" y="136" src="switches/MUTE-SWITCH2.bmp" action="audio-togglemutemsxaudio" visible="not enable-msxaudio"/>
+	        <button x="252" y="136" src="switches/MUTE-SWITCH.bmp" action="audio-togglemutemoonsound" visible="enable-moonsound"/>
+	        <button x="252" y="136" src="switches/MUTE-SWITCH2.bmp" action="audio-togglemutemoonsound" visible="not enable-moonsound"/>
+	        <button x="296" y="136" src="switches/MUTE-SWITCH.bmp" action="audio-togglemutesfg" visible="enable-sfg"/>
+	        <button x="296" y="136" src="switches/MUTE-SWITCH2.bmp" action="audio-togglemutesfg" visible="not enable-sfg"/>
+	        <button x="340" y="136" src="switches/MUTE-SWITCH.bmp" action="audio-togglemutekeyboard" visible="enable-keyboard"/>
+	        <button x="340" y="136" src="switches/MUTE-SWITCH2.bmp" action="audio-togglemutekeyboard" visible="not enable-keyboard"/>
+	        <button x="384" y="136" src="switches/MUTE-SWITCH.bmp" action="audio-togglemuteio" visible="enable-io"/>
+	        <button x="384" y="136" src="switches/MUTE-SWITCH2.bmp" action="audio-togglemuteio" visible="not enable-io"/>
+	        <button x="428" y="136" src="switches/MUTE-SWITCH.bmp" action="audio-togglemutemidi" visible="enable-midi"/>
+	        <button x="428" y="136" src="switches/MUTE-SWITCH2.bmp" action="audio-togglemutemidi" visible="not enable-midi"/>
+
+	        <button x="500" y="136" src="switches/MUTE-SWITCH.bmp" action="audio-togglemutemaster" visible="enable-master"/>
+	        <button x="500" y="136" src="switches/MUTE-SWITCH2.bmp" action="audio-togglemutemaster" visible="not enable-master"/>
+	        <button x="480" y="64" src="switches/STEREO-BUTTON.bmp" action="audio-togglestereo" visible="enable-stereo"/>
+	        <button x="480" y="64" src="switches/STEREO-BUTTON2.bmp" action="audio-togglestereo" visible="not enable-stereo"/>
+    	</block>
+        </page>
+
+        <page width="160" height="31" name="MixerClose">
+	<clipregion>
+		<point x="4" y="0"/>
+		<point x="156" y="0"/>
+		<point x="157" y="1"/>
+		<point x="158" y="1"/>
+		<point x="159" y="2"/>
+		<point x="159" y="3"/>
+		<point x="160" y="4"/>
+		<point x="160" y="26"/>
+		<point x="159" y="27"/>
+		<point x="159" y="28"/>
+		<point x="158" y="29"/>
+		<point x="157" y="30"/>
+		<point x="156" y="30"/>
+		<point x="5" y="31"/>
+		<point x="4" y="30"/>
+		<point x="3" y="30"/>
+		<point x="2" y="29"/>
+		<point x="1" y="28"/>
+		<point x="1" y="27"/>
+		<point x="0" y="26"/>
+		<point x="0" y="4"/>
+		<point x="1" y="3"/>
+		<point x="1" y="2"/>
+		<point x="2" y="1"/>
+	</clipregion>
+
+		<block x="0" y="0">
+
+    	    		<dragimage x="0" y="0" activenotify="1" src="Closed-tab.bmp"/>
+
+	        	<button x="135" y="4" activenotify="1" src="switches/CLOSE-BUTTON.bmp" action="theme-close"/>
+	        	<button x="115" y="4" activenotify="1" src="switches/MIN-BUTTON.bmp" action="theme-minimize"/>
+			<button x="5" y="4" activenotify="1" src="switches/EXPAND-BUTTON.bmp" action="theme-setpage" arga="MixerOpen"/>
+
+    		</block>
+        </page>
+    </window>
+</bluemsxtheme>

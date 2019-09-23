@@ -1,0 +1,229 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resrc1.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "dlgs.h"
+#include "resource.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RT_MANIFEST
+//
+
+1                       RT_MANIFEST             "trainer.manifest"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_OPEN                ICON                    "open.ico"
+IDI_BLUEMSX             ICON                    "bluemsx.ico"
+IDI_SAVE                ICON                    "save.ico"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resrc1.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""dlgs.h""\r\n"
+    "#include ""resource.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_SEARCH DIALOGEX 0, 0, 266, 270
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_MEMLIST,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,
+                    7,252,126
+    GROUPBOX        "",IDC_CMPTYPE,7,142,96,94
+    CONTROL         "",IDC_CMP_EQUAL,"Button",BS_AUTORADIOBUTTON | WS_GROUP,15,156,83,8
+    CONTROL         "",IDC_CMP_NOTEQUAL,"Button",BS_AUTORADIOBUTTON, 15,167,83,8
+    CONTROL         "",IDC_CMP_LESSTHAN,"Button",BS_AUTORADIOBUTTON, 15,178,83,8
+    CONTROL         "",IDC_CMP_LESSOREQUAL,"Button", BS_AUTORADIOBUTTON,15,188,83,8
+    CONTROL         "",IDC_CMP_GREATERTHAN,"Button", BS_AUTORADIOBUTTON,15,199,83,8
+    CONTROL         "",IDC_CMP_GREATEROREQUAL,"Button", BS_AUTORADIOBUTTON,15,209,81,8
+    GROUPBOX        "",IDC_DISPLAY,110,142,72,39
+    CONTROL         "",IDC_VAL_DEC,"Button",BS_AUTORADIOBUTTON | WS_GROUP,118,155,56,10
+    CONTROL         "",IDC_VAL_HEX,"Button",BS_AUTORADIOBUTTON,118,165,57,10
+    GROUPBOX        "",IDC_DATASIZE,187,142,72,39
+    CONTROL         "",IDC_VAL_8BIT,"Button",BS_AUTORADIOBUTTON | WS_GROUP,196,155,54,10
+    CONTROL         "",IDC_VAL_16BIT,"Button",BS_AUTORADIOBUTTON,196,165,54,10
+    GROUPBOX        "",IDC_SEARCHTYPE,111,185,148,51
+    CONTROL         "",IDC_CMP_OLDVAL,"Button",BS_AUTORADIOBUTTON | WS_GROUP,118,198,72,10
+    CONTROL         "",IDC_CMP_CHANGE,"Button",BS_AUTORADIOBUTTON,118,210,68,10
+    CONTROL         "",IDC_CMP_SPECIFIC,"Button",BS_AUTORADIOBUTTON,118,222,68,10
+    EDITTEXT        IDC_CMP_VALCHANGE,192,209,56,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_CMP_VALSPECIFIC,192,221,56,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "",IDC_SNAPSHOT,6,246,48,16
+    PUSHBUTTON      "",IDC_SEARCH,57,246,48,16
+    PUSHBUTTON      "",IDC_ADDCHEAT,160,246,48,16
+    PUSHBUTTON      "",IDC_UNDO,108,246,48,16
+    PUSHBUTTON      "",IDC_RUNSTOP,212,246,48,16
+END
+
+IDD_TRAINER DIALOGEX 0, 0, 285, 338
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_WINDOWEDGE
+CAPTION "blueMSX - Trainer"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_TAB,"SysTabControl32",0x0,7,42,271,289
+    CONTROL         1000,IDC_STATIC,"Static",SS_BITMAP,0,0,288,39
+END
+
+IDD_CHEATS DIALOGEX 0, 0, 266, 270
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_CHEATLIST,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,7,57,252,179
+    PUSHBUTTON      "",IDC_REMOVEALL,6,246,48,16
+    PUSHBUTTON      "",IDC_ADDCHEAT,160,246,48,16
+    PUSHBUTTON      "",IDC_ENABLE,108,246,48,16
+    EDITTEXT        IDC_FILENAME,7,21,218,13,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "",IDC_CHEATFILETEXT,7,7,102,11
+    PUSHBUTTON      "",IDC_REMOVE,57,246,48,16
+    LTEXT           "",IDC_ACTIVECHEATS,7,46,127,9
+    PUSHBUTTON      "",IDC_OPEN,227,20,15,15,BS_ICON
+    PUSHBUTTON      "",IDC_SAVE,244,20,15,15,BS_ICON
+    PUSHBUTTON      "",IDC_RUNSTOP,212,246,48,16
+END
+
+IDD_ADDCHEAT DIALOGEX 0, 0, 217, 126
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "blueMSX - Add Cheat"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "",IDOK,56,105,50,14
+    PUSHBUTTON      "",IDCANCEL,112,105,50,14
+    LTEXT           ":",IDC_DESCRIPTIONTEXT,7,8,48,13
+    EDITTEXT        IDC_DESCRIPTIONEDIT,55,7,155,12,ES_AUTOHSCROLL
+    LTEXT           "",IDC_ADDRESSTEXT,7,26,48,10
+    LTEXT           "",IDC_VALUETEXT,7,41,45,11
+    EDITTEXT        IDC_ADDRESSEDIT,55,23,155,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VALUEEDIT,55,39,155,12,ES_AUTOHSCROLL
+    GROUPBOX        "",IDC_DISPLAY,56,55,77,39
+    CONTROL         "",IDC_VAL_DEC,"Button",BS_AUTORADIOBUTTON | WS_GROUP,63,68,56,10
+    CONTROL         "",IDC_VAL_HEX,"Button",BS_AUTORADIOBUTTON,63,78,57,10
+    GROUPBOX        "",IDC_DATASIZE,139,55,72,39
+    CONTROL         "",IDC_VAL_8BIT,"Button",BS_AUTORADIOBUTTON | WS_GROUP,148,68,54,10
+    CONTROL         "",IDC_VAL_16BIT,"Button",BS_AUTORADIOBUTTON,148,78,54,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_SEARCH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 259
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 262
+    END
+
+    IDD_TRAINER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 278
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 331
+    END
+
+    IDD_CHEATS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 259
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 262
+    END
+
+    IDD_ADDCHEAT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 210
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 119
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_TRAINER             BITMAP                  "blueTrainer.bmp"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

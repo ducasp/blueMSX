@@ -1,0 +1,194 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resrc1.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "dlgs.h"
+#include "resource.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RT_MANIFEST
+//
+
+1                       RT_MANIFEST             "debugger.manifest"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_TOOLBAR             BITMAP                  "Toolbar.bmp"
+IDB_TOOLBARBG           BITMAP                  "ToolbarBg.bmp"
+IDB_DASMICONS           BITMAP                  "DasmIcons.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_BLUEMSX             ICON                    "bluemsx.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_RICHEDITCTRL1 DIALOGEX 0, 0, 0, 0
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_ADDRESS,"RichEdit",WS_BORDER | WS_TABSTOP,0,0,0,0
+END
+
+IDD_RICHEDITCTRL2 DIALOGEX 0, 0, 0, 0
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_ADDRESS,"RichEdit20A",WS_BORDER | WS_TABSTOP,0,0,0,0
+END
+
+IDD_MEMORYTOOLBAR DIALOGEX 0, 0, 236, 17
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LTEXT           ":",IDC_TEXT_MEMORY,7,4,30,10
+    COMBOBOX        IDC_MEMORY,41,2,132,84,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           ":",IDC_TEXT_ADDRESS,183,4,30,10
+END
+
+IDD_REGISTERSTOOLBAR DIALOGEX 0, 0, 236, 17
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LTEXT           ":",IDC_TEXT_REGISTERS,7,4,30,10
+    COMBOBOX        IDC_REGISTERS,48,2,132,84,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+END
+
+
+
+IDD_GOTO DIALOGEX 0, 0, 180, 56
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "Go To Address"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           ":",IDC_TEXT_ADDRESS,7,6,180,8
+    PUSHBUTTON      "",IDOK,37,37,50,14
+    PUSHBUTTON      "",IDCANCEL,93,37,50,14
+END
+
+
+IDD_FIND DIALOGEX 0, 0, 180, 56
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "Find"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           ":",IDC_TEXT_ADDRESS,7,6,180,8
+    PUSHBUTTON      "",IDOK,37,37,50,14
+    PUSHBUTTON      "",IDCANCEL,93,37,50,14
+END
+
+IDD_SETBP DIALOGEX 0, 0, 180, 56
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "Set Breakpoint"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           ":",IDC_TEXT_ADDRESS,7,6,180,8
+    PUSHBUTTON      "",IDOK,37,37,50,14
+    PUSHBUTTON      "",IDCANCEL,93,37,50,14
+END
+
+IDD_WATCHPOINT_ENTRY DIALOGEX 0, 0, 243, 106
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "Set Watchpoint"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Type:",IDC_TEXT_TYPE,7,6,180,8
+    LTEXT           ":",IDC_TEXT_ADDRESS,7,24,180,8
+    LTEXT           "Size:",IDC_TEXT_SIZE,7,42,180,8
+    LTEXT           "Condition:",IDC_TEXT_CONDITION,7,60,180,8
+    COMBOBOX        IDC_MEMTYPE,100,4,132,84,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "8 bit",IDC_RADIO_SIZE_8, "Button",BS_RADIOBUTTON | WS_TABSTOP,100,40,40,11
+    CONTROL         "16 bit",IDC_RADIO_SIZE_16, "Button",BS_RADIOBUTTON | WS_TABSTOP,140,40,40,11
+    CONTROL         "32 bit",IDC_RADIO_SIZE_32, "Button",BS_RADIOBUTTON | WS_TABSTOP,180,40,40,11
+    COMBOBOX        IDC_CONDITION,100,57,70,84,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "",IDOK,70,87,50,14
+    PUSHBUTTON      "",IDCANCEL,126,87,50,14
+END
+
+IDD_OPEN_SYMBOLSDIALOG DIALOGEX 0, 0, 0, 17
+STYLE WS_CHILD | WS_CLIPSIBLINGS | DS_CONTROL | DS_3DLOOK
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "", stc32, 0, 0, 0, 0
+    CONTROL         "",IDC_SYMBOLSAPPEND,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,150,120,11
+END
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resrc1.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""dlgs.h""\r\n"
+    "#include ""resource.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

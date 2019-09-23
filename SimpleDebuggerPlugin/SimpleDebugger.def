@@ -1,0 +1,13 @@
+EXPORTS
+Create12
+Destroy
+Show
+NotifyEmulatorStart
+NotifyEmulatorStop
+NotifyEmulatorPause
+NotifyEmulatorResume
+NotifyEmulatorReset
+EmulatorTrace
+EmulatorSetBreakpoint
+SetLanguage
+GetName
