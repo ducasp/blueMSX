@@ -32,7 +32,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct PrinterIO {
+struct PrinterIO {
     PrinterType type;
     DAC* dac;
     FILE* file;

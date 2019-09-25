@@ -34,7 +34,7 @@
 
 // Emulates the Microchip Technology Inc. 93C76/86 eeprom chips
 
-typedef struct Microwire93Cx6
+struct Microwire93Cx6
 {
     UInt8* romData;
     int    romMask;

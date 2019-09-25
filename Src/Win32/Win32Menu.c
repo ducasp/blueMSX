@@ -592,7 +592,7 @@ static HMENU menuCreateCart(int cartNo, Properties* pProperties, Shortcuts* shor
                 if (firstone==0) {
                     firstone++;
                     AppendMenu(hMenu, MF_SEPARATOR, 0, NULL);
-                    sprintf(langBuffer, "%hs        \tMSX", getCleanFileName(pProperties->filehistory.cartridge[cartNo][i]), pProperties->filehistory.cartridgeType[cartNo][i]);
+                    sprintf(langBuffer, "%hs        \tMSX", getCleanFileName(pProperties->filehistory.cartridge[cartNo][i]));
                 } else {
                     sprintf(langBuffer, "%hs", getCleanFileName(pProperties->filehistory.cartridge[cartNo][i]));
                 }
@@ -834,13 +834,13 @@ static HMENU menuCreateHarddisk(Properties* pProperties, Shortcuts* shortcuts)
             break;
         case HD_NOWIND:
             hasHd = 1;
-            sprintf(langBuffer, "Disk 1", i);
+            sprintf(langBuffer, "Disk 1");
             AppendMenu(hMenu, MF_POPUP, (UINT)menuCreateIdeHd(diskGetHdDriveId(i, 0), pProperties, shortcuts, 0), langBuffer);
-            sprintf(langBuffer, "Disk 2", i);
+            sprintf(langBuffer, "Disk 2");
             AppendMenu(hMenu, MF_POPUP, (UINT)menuCreateIdeHd(diskGetHdDriveId(i, 1), pProperties, shortcuts, 0), langBuffer);
-            sprintf(langBuffer, "Disk 3", i);
+            sprintf(langBuffer, "Disk 3");
             AppendMenu(hMenu, MF_POPUP, (UINT)menuCreateIdeHd(diskGetHdDriveId(i, 2), pProperties, shortcuts, 0), langBuffer);
-            sprintf(langBuffer, "Disk 4", i);
+            sprintf(langBuffer, "Disk 4");
             AppendMenu(hMenu, MF_POPUP, (UINT)menuCreateIdeHd(diskGetHdDriveId(i, 3), pProperties, shortcuts, 0), langBuffer);
             AppendMenu(hMenu, MF_SEPARATOR, 0, NULL);
             AppendMenu(hMenu, MF_POPUP, (UINT)menuCreateNowindSettings(pProperties), langPropSettings());

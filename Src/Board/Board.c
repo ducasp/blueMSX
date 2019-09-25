@@ -1290,7 +1290,7 @@ UInt32 boardCalcRelativeTimeout(UInt32 timerFrequency, UInt32 nextTimeout)
 /////////////////////////////////////////////////////////////
 // Board timer
 
-typedef struct BoardTimer {
+struct BoardTimer {
     BoardTimer*  next;
     BoardTimer*  prev;
     BoardTimerCb callback;

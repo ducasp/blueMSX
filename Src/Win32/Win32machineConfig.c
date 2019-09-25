@@ -109,7 +109,7 @@ static void updateMachineList(HWND hDlg) {
     iterator = arrayListCreateIterator(machineList);
     while (arrayListCanIterate(iterator)) {
         char buffer[128];
-        _snprintf(buffer, sizeof(buffer) - 1, "%s", arrayListIterate(iterator));
+        _snprintf(buffer, sizeof(buffer) - 1, "%s", (char*)arrayListIterate(iterator));
 
         SendDlgItemMessage(hDlg, IDC_CONF_CONFIGS, CB_ADDSTRING, 0, (LPARAM)buffer);
         if (index == 0 || 0 == strcmp(buffer, machineName)) {

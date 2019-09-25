@@ -65,9 +65,9 @@ static BOOL CALLBACK aboutDlgProc(HWND hDlg, UINT iMsg, WPARAM wParam, LPARAM lP
             buildDate[i] = '/';
 
             sprintf(aboutText, "%s\r\n\r\n"
-                                "%s%\t%s\r\n"
-                                "%s%\t%d\r\n"
-                                "%s%\t%s\r\n\r\n"
+                                "%s\t%s\r\n"
+                                "%s\t%d\r\n"
+                                "%s\t%s\r\n\r\n"
                                 "%s\r\n\r\n\r\n"
                                 "%s\r\n\r\n"
                         
@@ -77,7 +77,8 @@ static BOOL CALLBACK aboutDlgProc(HWND hDlg, UINT iMsg, WPARAM wParam, LPARAM lP
                                 "Ray Zero\r\n"
                                 "hap\r\n"
                                 "Ricardo Bittencourt\r\n"
-                                "white cat\r\n\r\n\r\n"
+								"white cat\r\n"
+								"Oduvaldo Pavan Junior (ducasp)\r\n\r\n\r\n"
 
                                 "%s\r\n\r\n"
 

@@ -31,7 +31,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct SL811HS
+struct SL811HS
 {
     int dummy;
 };

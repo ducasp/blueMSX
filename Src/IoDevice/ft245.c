@@ -589,7 +589,7 @@ static UInt8 fifoFront(Fifo* fifo)
 ///     FT245
 ////////////////////////////////////////////////////////////////////////////
 
-typedef struct FT245
+struct FT245
 {
     Fifo* sendFifo;
     Fifo* recvFifo;

@@ -33,7 +33,7 @@
 #include "Board.h"
 #include "ArchMidi.h"
 
-typedef struct MidiIO {
+struct MidiIO {
     MidiType inType;
     FILE* inFile;
     ArchMidi* inHost;

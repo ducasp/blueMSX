@@ -1052,7 +1052,7 @@ void propertiesSetDirectory(const char* defDir, const char* altDir)
 {
     FILE* f;
 
-    sprintf(settFilename, "bluemsx.ini", defDir);
+    sprintf(settFilename, "bluemsx.ini");
     f = fopen(settFilename, "r");
     if (f != NULL) {
         fclose(f);
@@ -1061,7 +1061,7 @@ void propertiesSetDirectory(const char* defDir, const char* altDir)
         sprintf(settFilename, "%s/bluemsx.ini", altDir);
     }
 
-    sprintf(histFilename, "bluemsx_history.ini", defDir);
+    sprintf(histFilename, "bluemsx_history.ini");
     f = fopen(histFilename, "r");
     if (f != NULL) {
         fclose(f);

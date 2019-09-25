@@ -32,7 +32,7 @@
 #include "DAC.h"
 #include "Board.h"
 
-typedef struct UartIO {
+struct UartIO {
     UartType type;
     FILE* file;
     int  uartReady;

@@ -32,7 +32,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Microchip24x00
+struct Microchip24x00
 {
     UInt8* romData;
     int    romMask;

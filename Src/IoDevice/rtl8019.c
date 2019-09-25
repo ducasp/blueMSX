@@ -39,7 +39,7 @@
 #define RX_FREQUENCY  10000
 
 
-typedef struct RTL8019
+struct RTL8019
 {
     UInt8  regCr;
     UInt8  regPstart;
