@@ -50,6 +50,7 @@
 #include "DeviceManager.h"
 #include "ramMapperIo.h"
 #include "CoinDevice.h"
+#include "SMXWiFi.h"
 
 void PatchZ80(void* ref, CpuRegs* cpuRegs);
 
@@ -89,6 +90,7 @@ static void reset()
     UInt32 systemTime = boardSystemTime();
 
     slotManagerReset();
+	smxWiFiReset();
 
     if (r800 != NULL) {
         r800Reset(r800, systemTime);
@@ -98,6 +100,8 @@ static void reset()
 }
 
 static void destroy() {        
+	smxWiFiDestroy();
+
     rtcDestroy(rtc);
 
     boardRemoveExternalDevices();
@@ -234,6 +238,8 @@ int msxCreate(Machine* machine,
     r800DebugCreate(r800);
     
 	ioPortRegister(0x2e, testPort, NULL, NULL);
+
+	smxWiFiCreate();
 
     sprintf(cmosName, "%s" DIR_SEPARATOR "%s.cmos", boardGetBaseDirectory(), machine->name);
     rtc = rtcCreate(machine->cmos.enable, machine->cmos.batteryBacked ? cmosName : 0);

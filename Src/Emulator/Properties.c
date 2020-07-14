@@ -458,6 +458,7 @@ void propInitDefaults(Properties* properties, int langType, PropKeyboardLanguage
     properties->ports.Com.name[0]        = 0;
     strcpy(properties->ports.Com.fileName, "uart.dat");
     properties->ports.Com.portName[0]    = 0;
+	properties->ports.Com.directuartio	 = 0; // Default is none
 
     properties->ports.Eth.ethIndex       = -1;
     properties->ports.Eth.disabled       = 0;
@@ -534,6 +535,7 @@ static void propLoad(Properties* properties)
     int i;
 
     GET_STR_VALUE_2(propFile, settings, language);
+	GET_INT_VALUE_3(propFile, ports, Com, directuartio);
     i = langFromName(properties->settings.language, 0);
     if (i != EMU_LANG_UNKNOWN) properties->language = i;
 
@@ -789,6 +791,7 @@ void propSave(Properties* properties)
 
     strcpy(properties->settings.language, langToName(properties->language, 0));
     SET_STR_VALUE_2(propFile, settings, language);
+	SET_INT_VALUE_3(propFile, ports, Com, directuartio);
     
     SET_ENUM_VALUE_2(propFile, settings, disableScreensaver, YesNoPair);    
     SET_ENUM_VALUE_2(propFile, settings, showStatePreview, YesNoPair);

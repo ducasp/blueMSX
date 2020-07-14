@@ -446,6 +446,7 @@ typedef struct {
         char name[256];
         char portName[PROP_MAXPATH];
         char fileName[PROP_MAXPATH];
+		int  directuartio;
     } Com;
     struct {
         int disabled;

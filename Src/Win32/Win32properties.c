@@ -2124,6 +2124,29 @@ static BOOL updatePortsComList(HWND hDlg, int id, Properties* pProperties)
 }
 
 
+static BOOL updateDIOComList(HWND hDlg, int id, Properties* pProperties)
+{
+    while (CB_ERR != SendDlgItemMessage(hDlg, id, CB_DELETESTRING, 0, 0));
+
+    // Add NONE:
+    SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)langPropPortsNone());
+    SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 0, 0); // Set as default
+
+    // Add SM-X
+    SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"SM-X Uart");
+    if (pProperties->ports.Com.type == 1) 
+        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 1, 0);
+
+	// Add 16C550 at 0x80
+    SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"16C550@0x80");
+    if (pProperties->ports.Com.type == 2) 
+        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 1, 0);
+
+
+    return TRUE;
+}
+
+
 static BOOL CALLBACK portsDlgProc(HWND hDlg, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
     static Properties* pProperties;
@@ -2155,6 +2178,7 @@ static BOOL CALLBACK portsDlgProc(HWND hDlg, UINT iMsg, WPARAM wParam, LPARAM lP
 
         updatePortsLptList(hDlg, IDC_PORTSLPT, pProperties);
         updatePortsComList(hDlg, IDC_PORTSCOM1, pProperties);
+		updateDIOComList(hDlg, IDC_PORTSCOMDIO, pProperties);
 
         updatePortsLptEmulList(hDlg, IDC_LPTEMULATION, pProperties);
 
@@ -2236,6 +2260,13 @@ static BOOL CALLBACK portsDlgProc(HWND hDlg, UINT iMsg, WPARAM wParam, LPARAM lP
                 int idx = SendDlgItemMessage(hDlg, IDC_PORTSCOM1, CB_GETCURSEL, 0, 0);
                 EnableWindow(GetDlgItem(hDlg, IDC_COM1FILENAMEBROWSE), idx == P_COM_FILE);
                 EnableWindow(GetDlgItem(hDlg, IDC_COM1FILENAME), idx == P_COM_FILE);
+            }
+            return TRUE;
+
+		case IDC_PORTSCOMDIO:
+			{
+                int idx = SendDlgItemMessage(hDlg, IDC_PORTSCOMDIO, CB_GETCURSEL, 0, 0);
+				pProperties->ports.Com.directuartio = idx;
             }
             return TRUE;
 
