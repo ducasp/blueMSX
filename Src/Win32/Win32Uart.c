@@ -36,7 +36,7 @@ static BOOL bUartInitialized = FALSE;
 static BOOL bMode2 = FALSE;
 static BYTE ucReceiveBuf = 0;
 static void (*uartReceiveCallback)(BYTE value);
-static void (*uartControlCallback
+static void (*uartControlCallback)(BYTE value);
 static DWORD dwUartSpeed = CBR_9600;
 static OVERLAPPED osWrite = {0};
 
@@ -337,7 +337,7 @@ void archUartTransmit(BYTE value)
 	}
 }
 
-int archUartCreate3(void (*archUartReceiveCallback) (BYTE), void (*archUartTransmitCallback) (void), void (*archUartControlCallback) (void), DWORD dwCreationSpeed)
+int archUartCreate3(void (*archUartReceiveCallback) (BYTE), void (*archUartTransmitCallback) (void), void (*archUartControlCallback) (BYTE), DWORD dwCreationSpeed)
 {
 	uartReceiveCallback = archUartReceiveCallback;
 	uartControlCallback = archUartControlCallback;

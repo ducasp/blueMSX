@@ -21,11 +21,11 @@
 
 #define INT_U16550C	0x1000
 
-bool bHoldStatusRegister = FALSE;
-unsigned char bFirstReceiveAfterTx = 0;
-unsigned char bBufferUnderrun = 0;
-ULONGLONG ullTicks;
-const DWORD dwUartSpeedTable[10] = {859372, 346520, 231014, 115200, 57600, 38400, 31250, 19200, 9600, 4800};
+UInt8 b16550CHoldStatusRegister = FALSE;
+unsigned char b16550CFirstReceiveAfterTx = 0;
+unsigned char b16550CBufferUnderrun = 0;
+ULONGLONG ull16550CTicks;
+const DWORD dw16550CSpeedTable[10] = {859372, 346520, 231014, 115200, 57600, 38400, 31250, 19200, 9600, 4800};
 
 struct U16550C_STATE
 {
@@ -55,19 +55,19 @@ void U16550C_TxFIFOReset()
 {
 	state.FIFOTxHead = 0;
 	state.FIFOTxTail = 0;
-	memset(FIFOTxBuffer,0,U16550C_FIFO_Depth);
+	memset(state.FIFOTxBuffer,0,U16550C_FIFO_Depth);
 }
 
 void U16550C_RxFIFOReset()
 {
 	state.FIFORxHead = 0;
 	state.FIFORxTail = 0;
-	memset(FIFORxBuffer,0,U16550C_FIFO_Depth);
+	memset(state.FIFORxBuffer,0,U16550C_FIFO_Depth);
 }
 
 void U16550C_TXDone(void)
 {
-	state.TXInProgress = 0;
+	//state.TXInProgress = 0;
 }
 
 void U16550C_RxFIFOIn(UInt8 value)
@@ -85,18 +85,18 @@ UInt8 U16550C_RxFIFOOut()
 
 	if (state.FIFORxTail == state.FIFORxHead)
 	{
-		if (bFirstReceiveAfterTx)
+		if (b16550CFirstReceiveAfterTx)
 		{
-			ullTicks = GetTickCount64() + 30;
-			bFirstReceiveAfterTx = 0;
+			ull16550CTicks = GetTickCount64() + 30;
+			b16550CFirstReceiveAfterTx = 0;
 		}
-		else if (ullTicks > (GetTickCount64() +30)) //safe guard for uninitialized state
-			ullTicks = GetTickCount64() + 30;
+		else if (ull16550CTicks > (GetTickCount64() +30)) //safe guard for uninitialized state
+			ull16550CTicks = GetTickCount64() + 30;
 		do
 		{
 			Sleep(0);
 		}
-		while ((GetTickCount64()<ullTicks)&&(state.FIFORxTail == state.FIFORxHead));
+		while ((GetTickCount64()<ull16550CTicks)&&(state.FIFORxTail == state.FIFORxHead));
 	}
 	if (state.FIFORxTail != state.FIFORxHead)
 	{
@@ -104,7 +104,7 @@ UInt8 U16550C_RxFIFOOut()
 		state.FIFORxTail = (state.FIFORxTail + 1) % U16550C_FIFO_Depth;
 	}
 	else
-		bBufferUnderrun = 1;
+		b16550CBufferUnderrun = 1;
 	return value;
 }
 
@@ -112,6 +112,7 @@ static UInt8 U16550C_ReadUARTStatus(struct U16550C_STATE* state, UInt16 ioPort)
 {
 	UInt8 currentStatus=0;
 
+	/*
 	if (state->FIFORxTail != state->FIFORxHead)
 		currentStatus|=1; //set rx buffer has data
 	if (state->TXInProgress)
@@ -124,6 +125,7 @@ static UInt8 U16550C_ReadUARTStatus(struct U16550C_STATE* state, UInt16 ioPort)
 		currentStatus|=0x10; // Set buffer underrun
 		bBufferUnderrun = 0;
 	}
+	*/
     return currentStatus;
 }
 
@@ -134,7 +136,7 @@ static UInt8 U16550C_ReadUARTBuffer(struct U16550C_STATE* state, UInt16 ioPort)
 
 static void U16550C_WriteUARTBuffer(struct U16550C_STATE* state, UInt16 ioPort, UInt8 value)
 {
-	bFirstReceiveAfterTx = 1;
+	b16550CFirstReceiveAfterTx = 1;
 	if ((state->hasCommPort))
 	{
 		archUartTransmit(value);
@@ -144,6 +146,7 @@ static void U16550C_WriteUARTBuffer(struct U16550C_STATE* state, UInt16 ioPort, 
 
 static void U16550C_WriteUARTCommand(struct U16550C_STATE* state, UInt16 ioPort, UInt8 value)
 {
+	/*
 	if(value<=9) //Set UART Speed
 	{
 		state->UARTSpeed = value;
@@ -156,31 +159,39 @@ static void U16550C_WriteUARTCommand(struct U16550C_STATE* state, UInt16 ioPort,
 		U16550C_RxFIFOReset();
 		U16550C_TxFIFOReset();
 	}
+	*/
 }
 
-static Uint8 U16550C_ReadBaseAddress0(struct U16550C_STATE* state, UInt16 ioPort)
+static UInt8 U16550C_ReadBaseAddress0(struct U16550C_STATE* state, UInt16 ioPort)
+{
+	return 0;
+}
+
+static void U16550C_WriteBaseAddress0(struct U16550C_STATE* state, UInt16 ioPort, UInt8 value)
 {
 }
 
-static Uint8 U16550C_ReadBaseAddress1(struct U16550C_STATE* state, UInt16 ioPort)
+static UInt8 U16550C_ReadBaseAddress1(struct U16550C_STATE* state, UInt16 ioPort)
+{
+	return 0;
+}
+
+static void U16550C_WriteBaseAddress1(struct U16550C_STATE* state, UInt16 ioPort, UInt8 value)
 {
 }
 
-static Uint8 U16550C_ReadBaseAddress2(struct U16550C_STATE* state, UInt16 ioPort)
+static UInt8 U16550C_ReadBaseAddress2(struct U16550C_STATE* state, UInt16 ioPort)
+{
+	return 0;
+}
+
+static void U16550C_WriteBaseAddress2(struct U16550C_STATE* state, UInt16 ioPort, UInt8 value)
 {
 }
 
-static Uint8 U16550C_ReadBaseAddress3(struct U16550C_STATE* state, UInt16 ioPort)
+UInt8 U16550C_CheckFIFOForLineErrors()
 {
-}
-
-static Uint8 U16550C_ReadBaseAddress4(struct U16550C_STATE* state, UInt16 ioPort)
-{
-}
-
-bool U16550C_CheckFIFOForLineErrors()
-{
-	return false;
+	return FALSE;
 }
 
 void U16550C_AdjustLineControlParameters()
@@ -197,10 +208,10 @@ static void U16550C_WriteBaseAddress3(struct U16550C_STATE* state, UInt16 ioPort
 	return;
 }
 
-static Uint8 U16550C_ReadBaseAddress3(struct U16550C_STATE* state, UInt16 ioPort)
+static UInt8 U16550C_ReadBaseAddress3(struct U16550C_STATE* state, UInt16 ioPort)
 {
 	// 3 is the modem control Register
-	return state->LineControlRegister();
+	return state->LineControlRegister;
 }
 
 void U16550C_AdjustModemControlParameters()
@@ -213,11 +224,11 @@ static void U16550C_WriteBaseAddress4(struct U16550C_STATE* state, UInt16 ioPort
 	// 4 is the modem control register
 	state->ModemControlRegister = value & 0x3F; // bits 6 and 7 are always zero
 	if (oldLCR!=state->ModemControlRegister)
-		U16550C_AdjustModemControlParameters()
+		U16550C_AdjustModemControlParameters();
 	return;
 }
 
-static Uint8 U16550C_ReadBaseAddress4(struct U16550C_STATE* state, UInt16 ioPort)
+static UInt8 U16550C_ReadBaseAddress4(struct U16550C_STATE* state, UInt16 ioPort)
 {
 	// 6 is the modem control Register
 	return state->ModemControlRegister;
@@ -229,10 +240,10 @@ static void U16550C_WriteBaseAddress5(struct U16550C_STATE* state, UInt16 ioPort
 	return;
 }
 
-static Uint8 U16550C_ReadBaseAddress5(struct U16550C_STATE* state, UInt16 ioPort)
+static UInt8 U16550C_ReadBaseAddress5(struct U16550C_STATE* state, UInt16 ioPort)
 {
 	// 5 is the Line Status Register
-	Uint8 returnValue = state->LineStatusRegister;
+	UInt8 returnValue = state->LineStatusRegister;
 
 	if (!U16550C_CheckFIFOForLineErrors())
 		state->LineStatusRegister &= 0x63; //Clear error bits and FIFO has error bit if there are no errors or not in FIFO mode
@@ -248,14 +259,14 @@ static void U16550C_WriteBaseAddress6(struct U16550C_STATE* state, UInt16 ioPort
 	return;
 }
 
-static Uint8 U16550C_ReadBaseAddress6(struct U16550C_STATE* state, UInt16 ioPort)
+static UInt8 U16550C_ReadBaseAddress6(struct U16550C_STATE* state, UInt16 ioPort)
 {
+	UInt8 returnValue = state->ModemStatusRegister;
 	// 6 is the modem status register
-	bHoldStatusRegister = TRUE;
-	Uint8 returnValue = state->ModemStatusRegister;
+	b16550CHoldStatusRegister = TRUE;	
 
 	state->ModemStatusRegister &= 0xf0; //Clear delta indication
-	bHoldStatusRegister = FALSE;
+	b16550CHoldStatusRegister = FALSE;
 	return returnValue;
 }
 
@@ -265,7 +276,7 @@ static void U16550C_WriteBaseAddress7(struct U16550C_STATE* state, UInt16 ioPort
 	state->ScratchRegister = value;
 }
 
-static Uint8 U16550C_ReadBaseAddress7(struct U16550C_STATE* state, UInt16 ioPort)
+static UInt8 U16550C_ReadBaseAddress7(struct U16550C_STATE* state, UInt16 ioPort)
 {
 	// 7 is the scratch register
 	return state->ScratchRegister;
@@ -278,7 +289,7 @@ void U16550C_Create ()
 	U16550C_Reset();
 
 	if (pProperties->ports.Com.directuartio == 1)
-		state.hasCommPort = archUartCreate2(U16550C_RxFIFOIn, U16550C_TXDone, dwUartSpeedTable[state.UARTSpeed]);
+		state.hasCommPort = archUartCreate2(U16550C_RxFIFOIn, U16550C_TXDone, dw16550CSpeedTable[state.UARTSpeed]);
 	else
 		state.hasCommPort = FALSE;
 
@@ -306,11 +317,11 @@ void U16550C_Reset()
 	//boardSetInt(INT_U16550C);
 	U16550C_RxFIFOReset();
 	U16550C_TxFIFOReset();
-	InterruptEnableRegister = 0;
-	InterruptIdentificationRegister = 1;
-	FIFOControlRegister = 0;
-	LineControlRegister = 0;
-	ModemControlRegister = 0;
-	LineStatusRegister = 0x60;
-	ModemStatusRegister = 0;
+	state.InterruptEnableRegister = 0;
+	state.InterruptIdentificationRegister = 1;
+	state.FIFOControlRegister = 0;
+	state.LineControlRegister = 0;
+	state.ModemControlRegister = 0;
+	state.LineStatusRegister = 0x60;
+	state.ModemStatusRegister = 0;
 }
