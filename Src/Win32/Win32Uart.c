@@ -26,18 +26,26 @@
 ******************************************************************************
 */
 #include <windows.h>
+#include <stdio.h>
 #include "Win32Uart.h"
 #include "ArchUart.h"
 #include "Properties.h"
 
 static HANDLE hComPort = INVALID_HANDLE_VALUE; 
 static HANDLE hReadThread = NULL;
+static HANDLE hStatusThread = NULL;
 static BOOL bUartInitialized = FALSE;
 static BOOL bMode2 = FALSE;
+static BOOL bMode3 = FALSE;
 static BYTE ucReceiveBuf = 0;
 static void (*uartReceiveCallback)(BYTE value);
-static void (*uartControlCallback)(BYTE value);
+static void (*uartReceiveCallback2)(BYTE value,DWORD error);
+static void (*uartControlCallback)(DWORD value);
 static DWORD dwUartSpeed = CBR_9600;
+static unsigned int uiParity = FALSE;
+static unsigned int uiBits = 8;
+static unsigned int uiParityScheme = NOPARITY;
+static unsigned int uiStopBits = ONESTOPBIT;
 static OVERLAPPED osWrite = {0};
 
 static DWORD PortReadThread (LPVOID lpvoid)
@@ -115,6 +123,97 @@ static DWORD PortReadThread2 (LPVOID lpvoid)
 	return 0;
 }
 
+static DWORD PortReadThread3 (LPVOID lpvoid)
+{
+	BYTE value;
+	DWORD dwBytesTransferred;
+	DWORD dwRes;
+	DWORD dwErr;
+	OVERLAPPED osReader = {0};
+
+	// Create the overlapped event. Must be closed before exiting
+	// to avoid a handle leak.
+	osReader.hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+
+	while (hComPort != INVALID_HANDLE_VALUE) 
+	{
+		dwBytesTransferred = 0;
+		// Read the data from the serial port.
+		if (!ReadFile(hComPort, &value, 1, &dwBytesTransferred, &osReader))
+		{
+			if (GetLastError() == ERROR_IO_PENDING)
+			{
+				dwRes = WaitForSingleObject(osReader.hEvent, INFINITE);
+				if(dwRes==WAIT_OBJECT_0)
+				{
+					if (!GetOverlappedResult(hComPort, &osReader, &dwBytesTransferred, FALSE))
+					{
+						dwBytesTransferred = 0;
+						if (uartReceiveCallback2)
+						{
+							//ClearCommError seems to be de-asserting RTS and causing data to not be read
+							ClearCommError(hComPort,&dwErr,NULL);
+							(*uartReceiveCallback2) (value,dwErr);
+						}
+					}
+					else if ((dwBytesTransferred)&&(uartReceiveCallback2 != NULL))
+							(*uartReceiveCallback2) (value,0);
+				}
+			}
+		}
+		else // read immediatelly
+			if (dwBytesTransferred)
+			{
+				//ClearCommError seems to be de-asserting RTS and causing data to not be read
+				ClearCommError(hComPort,&dwErr,NULL);
+				(*uartReceiveCallback2) (value,dwErr);
+			}
+	}
+
+	CloseHandle(osReader.hEvent);
+
+	return 0;
+}
+
+static DWORD PortReadStatus (LPVOID lpvoid)
+{
+	DWORD dwCommEvent,dwOvRes;
+	DWORD dwRes;
+	DWORD dwStoredFlags = EV_BREAK | EV_CTS | EV_DSR | EV_RING | EV_RLSD | EV_TXEMPTY ;
+	OVERLAPPED osStatus = {0};
+
+	// Create the overlapped event. Must be closed before exiting
+	// to avoid a handle leak.
+	osStatus.hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+
+	//SetCommMask(hComPort, dwStoredFlags);
+
+	while (hComPort != INVALID_HANDLE_VALUE) 
+	{
+		if (!WaitCommEvent(hComPort, &dwCommEvent, &osStatus))
+		{
+            if (GetLastError() == ERROR_IO_PENDING)
+			{
+				dwRes = WaitForSingleObject(osStatus.hEvent, INFINITE);
+				if(dwRes==WAIT_OBJECT_0)
+				{
+					if (GetOverlappedResult(hComPort, &osStatus, &dwOvRes, FALSE)&&(uartControlCallback))
+						uartControlCallback(dwCommEvent);
+				}
+			}
+
+        }
+        else if (uartControlCallback)
+			 //WaitCommEvent returned immediately.
+			// Deal with status event as appropriate.
+			uartControlCallback(dwCommEvent);
+	}
+
+	CloseHandle(osStatus.hEvent);
+
+	return 0;
+}
+
 static BOOL uartCreate(void)
 {
     Properties* pProperties = propGetGlobalProperties();
@@ -124,6 +223,7 @@ static BOOL uartCreate(void)
     DWORD dwThreadID;
 
 	bMode2 = FALSE;
+	bMode3 = FALSE;
     // Alread initialized?
     if (bUartInitialized)
         return TRUE;
@@ -278,34 +378,204 @@ static BOOL uartCreate2(void)
     return TRUE;
 }
 
+static BOOL uartCreate3(void)
+{
+    Properties* pProperties = propGetGlobalProperties();
+	COMMTIMEOUTS commTimeouts;
+    DCB dcbConfig;
+    DWORD dwThreadID;
+	char myPortName[600];
+
+	bMode2=TRUE;
+	bMode3=TRUE;
+    // Alread initialized?
+    if (bUartInitialized)
+        return TRUE;
+
+	// A must for COM10 a beyond
+	sprintf(myPortName,"\\\\.\\");
+	strcat(myPortName,pProperties->ports.Com.portName);
+
+    // Open the serial port
+    hComPort = CreateFile(myPortName, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, 0);
+	if (hComPort == INVALID_HANDLE_VALUE)
+		return FALSE;
+
+	// Create this write operation's OVERLAPPED structure's hEvent.
+	osWrite.hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+	if (osWrite.hEvent == NULL)
+		// error creating overlapped event handle
+		return FALSE;
+
+    dcbConfig.DCBlength = sizeof (DCB);
+
+    // Get the default port setting information
+    if (GetCommState(hComPort,&dcbConfig) == 0)
+        return FALSE;
+		
+    SetupComm(hComPort, 16, 16);
+		
+    // Change the DCB structure settings
+    dcbConfig.BaudRate = dwUartSpeed;			// Current baud 
+    dcbConfig.fBinary = TRUE;					// Binary mode; no EOF check 
+    dcbConfig.fParity = uiParity;				// Disable parity checking 
+    dcbConfig.fOutxCtsFlow = FALSE;				// No CTS output flow control 
+    dcbConfig.fOutxDsrFlow = FALSE;				// No DSR output flow control 
+    dcbConfig.fDtrControl = DTR_CONTROL_DISABLE;// DTR flow control type 
+    dcbConfig.fDsrSensitivity = FALSE;			// DSR sensitivity 
+    dcbConfig.fTXContinueOnXoff = FALSE;		// XOFF continues Tx 
+    dcbConfig.fOutX = FALSE;					// No XON/XOFF out flow control 
+    dcbConfig.fInX = FALSE;						// No XON/XOFF in flow control 
+    dcbConfig.fErrorChar = FALSE;				// Disable error replacement 
+    dcbConfig.fNull = FALSE;					// Disable null stripping 
+    dcbConfig.fRtsControl = RTS_CONTROL_DISABLE;//Disable RTS flow control
+    dcbConfig.fAbortOnError = TRUE;				// abort reads/writes on error
+    dcbConfig.ByteSize = uiBits;				// Number of bits/byte, 4-8 
+    dcbConfig.Parity = uiParityScheme;          // 0-4=no,odd,even,mark,space 
+    dcbConfig.StopBits = uiStopBits;			// 0,1,2 = 1, 1.5, 2 
+  
+    // Configure the port according to the specifications of the DCB structure
+	if (!SetCommState (hComPort, &dcbConfig)) {
+		dwThreadID = GetLastError();
+        return FALSE;
+	}
+
+	// Change the COMMTIMEOUTS structure settings
+    commTimeouts.ReadIntervalTimeout = MAXDWORD;
+    commTimeouts.ReadTotalTimeoutMultiplier = 0;
+    commTimeouts.ReadTotalTimeoutConstant = 0;
+    commTimeouts.WriteTotalTimeoutMultiplier = 0;
+    commTimeouts.WriteTotalTimeoutConstant = 0;
+
+    // Set the time-out parameters for all read and write operations on the port
+    if (!SetCommTimeouts(hComPort, &commTimeouts))
+        return FALSE;
+
+    // Create a read thread for reading data from the communication port
+    hReadThread = CreateThread(NULL, 
+                          0,
+                          (LPTHREAD_START_ROUTINE) PortReadThread3,
+                          0, 
+                          0, 
+                          &dwThreadID);
+
+	if (hReadThread == NULL)
+		return FALSE;
+	
+	// Create a read thread for reading data from the communication port
+	hStatusThread = CreateThread(NULL, 
+                          0,
+                          (LPTHREAD_START_ROUTINE) PortReadStatus,
+                          0, 
+                          0, 
+                          &dwThreadID);
+
+	if (hStatusThread == NULL)
+		return FALSE;
+
+    bUartInitialized = TRUE;
+
+    return TRUE;
+}
+
 static void uartDestroy(void)
 {
-    CloseHandle (hComPort);
+	DWORD dwError;
+    if (!CloseHandle (hComPort))
+		dwError = GetLastError();
 
 	hComPort = INVALID_HANDLE_VALUE;
 
     if (hReadThread != NULL) {
-
         WaitForSingleObject(hReadThread, INFINITE);
 	    CloseHandle(hReadThread);
         hReadThread = NULL;
     }
 
+	if (hStatusThread != NULL) {
+		WaitForSingleObject(hStatusThread, INFINITE);
+	    CloseHandle(hStatusThread);
+        hStatusThread = NULL;
+    }
+
 	if (bMode2)
 	{
 		if (osWrite.hEvent != NULL)
+		{
 			CloseHandle(osWrite.hEvent);
+			osWrite.hEvent = NULL;
+		}
+		bMode2 = FALSE;
 	}
    
+	if (bMode3)
+		bMode3 = FALSE;
     bUartInitialized = FALSE;
 }
 
+static BOOL uartSetLCR(DWORD dwSpeed)
+{
+	DCB dcbConfig;
+	BOOL bReturn = FALSE;
+	DWORD dwErr;
+
+	dcbConfig.DCBlength = sizeof (DCB);
+	if (!GetCommState(hComPort,&dcbConfig))
+		dwErr = GetLastError();
+	dwUartSpeed = dwSpeed;
+	// Change the DCB structure settings
+    dcbConfig.BaudRate = dwUartSpeed;       // Current baud 
+    dcbConfig.fBinary = TRUE;               // Binary mode; no EOF check 
+    dcbConfig.fParity = uiParity;           // Disable parity checking 
+    dcbConfig.fOutxCtsFlow = FALSE;         // No CTS output flow control 
+    dcbConfig.fOutxDsrFlow = FALSE;         // No DSR output flow control 
+    dcbConfig.fDtrControl = DTR_CONTROL_DISABLE; // DTR flow control type 
+    dcbConfig.fDsrSensitivity = FALSE;      // DSR sensitivity 
+    dcbConfig.fTXContinueOnXoff = FALSE;    // XOFF continues Tx 
+    dcbConfig.fOutX = FALSE;                // No XON/XOFF out flow control 
+    dcbConfig.fInX = FALSE;                 // No XON/XOFF in flow control 
+    dcbConfig.fErrorChar = FALSE;           // Disable error replacement 
+    dcbConfig.fNull = FALSE;                // Disable null stripping 
+    dcbConfig.fRtsControl = RTS_CONTROL_DISABLE; //Disable RTS flow control
+    dcbConfig.fAbortOnError = TRUE;         // abort reads/writes on error
+    dcbConfig.ByteSize = uiBits;            // Number of bits/byte, 4-8 
+    dcbConfig.Parity = uiParityScheme;            // 0-4=no,odd,even,mark,space 
+    dcbConfig.StopBits = uiStopBits;        // 0,1,2 = 1, 1.5, 2 
+  
+    // Configure the port according to the specifications of the DCB structure
+	if (!SetCommState (hComPort, &dcbConfig)) {
+		bReturn = FALSE;
+		dwErr = GetLastError();
+	}
+	else
+		bReturn = TRUE;
+
+	return bReturn;
+
+
+	//uartDestroy();
+	//dwUartSpeed = dwSpeed;
+	//return uartCreate3();
+}
 
 static BOOL uartSetSpeed(DWORD dwSpeed)
 {
-	uartDestroy();
-	dwUartSpeed = dwSpeed;
-	return uartCreate2();
+	BOOL bCreate3 = bMode3;
+
+	if (bMode3)
+		uartSetLCR(dwSpeed);
+
+	if (dwSpeed!=dwUartSpeed)
+	{
+		uartDestroy();
+		dwUartSpeed = dwSpeed;
+		if (bCreate3)
+			return uartCreate3();
+		else
+			return uartCreate2();
+	}
+	else
+		return TRUE;
 }
 
 static void uartTransmit(BYTE value)
@@ -318,7 +588,90 @@ static void uartTransmit(BYTE value)
 static void uartTransmit2(BYTE value)
 {
 	DWORD dwNumBytesWritten;
-	WriteFile(hComPort, &value, 1, &dwNumBytesWritten, &osWrite);
+	if(!WriteFile(hComPort, &value, 1, &dwNumBytesWritten, &osWrite)) {
+		dwNumBytesWritten = GetLastError();
+	}
+}
+
+DWORD archUartGetModemStatus()
+{
+	DWORD dwModemStatus;
+	GetCommModemStatus(hComPort,&dwModemStatus);
+	return dwModemStatus;
+}
+
+void archUartEscapeCommFunction(unsigned long dwFunc)
+{
+	DWORD dwErr;
+	if (!EscapeCommFunction(hComPort,dwFunc))
+		dwErr=GetLastError();
+}
+
+void archUartSetLCR (unsigned char ucLCR)
+{
+unsigned int uiNParity = FALSE;
+unsigned int uiNBits = 8;
+unsigned int uiNParityScheme = NOPARITY;
+unsigned int uiNStopBits = ONESTOPBIT;
+	switch	(ucLCR&0x03)
+	{
+		case 0:
+			uiNBits = 5;
+			break;
+		case 1:
+			uiNBits = 6;
+			break;
+		case 2:
+			uiNBits = 7;
+			break;
+		case 3:
+			uiNBits = 8;
+			break;
+	}
+
+	if (ucLCR&0x04)
+	{
+		if (uiNBits == 5)
+			uiNStopBits = ONE5STOPBITS;
+		else
+			uiNStopBits = ONESTOPBIT; // some ports do not accept two stop bits
+			//uiNStopBits = TWOSTOPBITS;
+	}
+	else
+		uiNStopBits = ONESTOPBIT;
+
+	if (ucLCR&0x08)
+	{
+		uiNParity = TRUE;
+		if (ucLCR&0x20) // stick?
+		{
+			if (ucLCR&0x10)
+				uiNParityScheme = MARKPARITY;
+			else
+				uiNParityScheme = SPACEPARITY;
+		}
+		else
+		{
+			if (ucLCR&0x10)
+				uiNParityScheme = EVENPARITY;
+			else
+				uiNParityScheme = ODDPARITY;
+		}
+	}
+	else
+	{
+		uiNParity = FALSE;
+		uiNParityScheme = NOPARITY;
+	}
+
+	if ((uiNParity!=uiParity)||(uiNParityScheme!=uiParityScheme)||(uiNStopBits!=uiStopBits)||(uiNBits!=uiBits))
+	{
+		uiParity=uiNParity;
+		uiParityScheme=uiNParityScheme;
+		uiStopBits=uiNStopBits;
+		uiBits=uiNBits;
+		uartSetLCR(dwUartSpeed);
+	}
 }
 
 int archUartSetSpeed(unsigned long dwNewSpeed)
@@ -337,12 +690,12 @@ void archUartTransmit(BYTE value)
 	}
 }
 
-int archUartCreate3(void (*archUartReceiveCallback) (BYTE), void (*archUartTransmitCallback) (void), void (*archUartControlCallback) (BYTE), DWORD dwCreationSpeed)
+int archUartCreate3(void (*archUartReceiveCallback) (BYTE, DWORD), void (*archUartControlCallback) (DWORD), DWORD dwCreationSpeed)
 {
-	uartReceiveCallback = archUartReceiveCallback;
+	uartReceiveCallback2 = archUartReceiveCallback;
 	uartControlCallback = archUartControlCallback;
 	dwUartSpeed = dwCreationSpeed;
-	return uartCreate2();
+	return uartCreate3();
 }
 
 int archUartCreate2(void (*archUartReceiveCallback) (BYTE), void (*archUartTransmitCallback) (void), DWORD dwCreationSpeed)
@@ -363,5 +716,7 @@ int archUartCreate(void (*archUartReceiveCallback) (BYTE))
 void archUartDestroy(void)
 {
     uartReceiveCallback = NULL;
+	uartReceiveCallback2 = NULL;
+	uartControlCallback = NULL;
     uartDestroy();
 }

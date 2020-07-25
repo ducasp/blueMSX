@@ -51,6 +51,7 @@
 #include "ramMapperIo.h"
 #include "CoinDevice.h"
 #include "SMXWiFi.h"
+#include "16550C.h"
 
 void PatchZ80(void* ref, CpuRegs* cpuRegs);
 
@@ -240,6 +241,7 @@ int msxCreate(Machine* machine,
 	ioPortRegister(0x2e, testPort, NULL, NULL);
 
 	smxWiFiCreate();
+	U16550C_Create();
 
     sprintf(cmosName, "%s" DIR_SEPARATOR "%s.cmos", boardGetBaseDirectory(), machine->name);
     rtc = rtcCreate(machine->cmos.enable, machine->cmos.batteryBacked ? cmosName : 0);
