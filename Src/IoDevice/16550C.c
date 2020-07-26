@@ -30,9 +30,9 @@ UInt8 b16550CTXThreadGotMutex = FALSE;
 ULONGLONG ull16550CTicks;
 unsigned long ul16550CBaudRate;
 HANDLE hTXThread = NULL;
-HANDLE ghMutex;
-HANDLE ghTimerMutex;
-HANDLE ghTimerMutex2;
+HANDLE ghMutex = NULL;
+HANDLE ghTimerMutex = NULL;
+HANDLE ghIRQMutex = NULL;
 HANDLE hSerialPort = INVALID_HANDLE_VALUE; 
 HANDLE hRxThread = NULL;
 HANDLE hStsThread = NULL;
@@ -122,6 +122,9 @@ DWORD U16550C_PortReadThread (LPVOID lpvoid)
 			if (GetLastError() == ERROR_IO_PENDING)
 			{
 				dwRes = WaitForSingleObject(osReader.hEvent, INFINITE);
+				// Closing?
+				if (hSerialPort == INVALID_HANDLE_VALUE)
+					return 0;
 				if(dwRes==WAIT_OBJECT_0)
 				{
 					ullTicks = GetTickCount64() + 100;
@@ -141,6 +144,9 @@ DWORD U16550C_PortReadThread (LPVOID lpvoid)
 		else // read immediatelly
 			if (dwBytesTransferred)
 			{
+				// Closing?
+				if (hSerialPort == INVALID_HANDLE_VALUE)
+					return 0;
 				ullTicks = GetTickCount64() + 100;
 				while (U16550C_RxFIFOFull()&&(ullTicks>GetTickCount64()))
 						Sleep(0);
@@ -175,6 +181,9 @@ DWORD U16550C_PortReadStatus (LPVOID lpvoid)
 	{
 		if (!WaitCommEvent(hSerialPort, &dwCommEvent, &osStatus))
 		{
+			// Closing?
+			if (hSerialPort == INVALID_HANDLE_VALUE)
+				return 0;
             if (GetLastError() == ERROR_IO_PENDING)
 			{
 				dwRes = WaitForSingleObject(osStatus.hEvent, INFINITE);
@@ -187,9 +196,14 @@ DWORD U16550C_PortReadStatus (LPVOID lpvoid)
 
         }
         else
-			 //WaitCommEvent returned immediately.
+		{
+			// Closing?
+			if (hSerialPort == INVALID_HANDLE_VALUE)
+				return 0;
+			//WaitCommEvent returned immediately.
 			// Deal with status event as appropriate.
 			U16550C_FIFOStatusChange(dwCommEvent);
+		}
 	}
 
 	CloseHandle(osStatus.hEvent);
@@ -327,6 +341,7 @@ BOOL U16550C_UartCreate(void)
 	COMMTIMEOUTS commTimeouts;
     DWORD dwThreadID;
 	char myPortName[600];
+	unsigned int uiRetries = 10;
 
     // Alread initialized?
     if (state.hasCommPort)
@@ -336,13 +351,21 @@ BOOL U16550C_UartCreate(void)
 	sprintf(myPortName,"\\\\.\\");
 	strcat(myPortName,pProperties->ports.Com.portName);
 
-    // Open the serial port
-    hSerialPort = CreateFile(myPortName, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, 0);
-	if (hSerialPort == INVALID_HANDLE_VALUE)
+	do
 	{
-		state.hasCommPort = FALSE;
-		return FALSE;
+		// Open the serial port
+		hSerialPort = CreateFile(myPortName, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, 0);
+		if (hSerialPort == INVALID_HANDLE_VALUE)
+		{
+			state.hasCommPort = FALSE;
+			Sleep(500);
+		}
+		uiRetries--;
 	}
+	while((hSerialPort == INVALID_HANDLE_VALUE)&&(uiRetries));
+
+	if (hSerialPort == INVALID_HANDLE_VALUE)
+		return FALSE;
 
 	// Create this write operation's OVERLAPPED structure's hEvent.
 	os_Write.hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
@@ -364,7 +387,7 @@ BOOL U16550C_UartCreate(void)
         return FALSE;
 	}
 		
-    SetupComm(hSerialPort, 16, 16);
+    SetupComm(hSerialPort, 4096, 4096);
 		    
 	// Change the COMMTIMEOUTS structure settings
 	// Do not want time outs, so overlapped will signal only when data was sent or received
@@ -433,13 +456,16 @@ BOOL U16550C_UartCreate(void)
 void U16550C_UartDestroy(void)
 {
 	DWORD dwError;
+	HANDLE hClosePort = hSerialPort;
+
+	U16550C_RXTimeOutCancel();
+
 	if (hSerialPort!=INVALID_HANDLE_VALUE)
 	{
-		if (!CloseHandle (hSerialPort))
+		hSerialPort = INVALID_HANDLE_VALUE;
+		if (!CloseHandle (hClosePort))
 			dwError = GetLastError();
-	}
-
-	hSerialPort = INVALID_HANDLE_VALUE;
+	}	
 
     if (hRxThread != NULL) {
         WaitForSingleObject(hRxThread, INFINITE);
@@ -453,12 +479,6 @@ void U16550C_UartDestroy(void)
         hStsThread = NULL;
     }
 
-	if (os_Write.hEvent != NULL)
-	{
-		CloseHandle(os_Write.hEvent);
-		os_Write.hEvent = NULL;
-	}
-   
 	state.hasCommPort = FALSE;
 }
 
@@ -476,21 +496,21 @@ void U16550C_Create()
 		// Reset our emulated uart
 		if (U16550C_Reset())
 		{
-			ghTimerMutex = CreateMutex(NULL,           // default security attributes
+			ghIRQMutex = CreateMutex(NULL,           // default security attributes
 									FALSE,             // initially not owned
 									NULL);             // unnamed mutex
-			if (ghTimerMutex == NULL) 
+			if (ghIRQMutex == NULL) 
 			{
 				U16550C_UartDestroy();
 				state.hasCommPort = FALSE;
 				return;
 			}
-			ghTimerMutex2 = CreateMutex(NULL,           // default security attributes
+			ghTimerMutex = CreateMutex(NULL,           // default security attributes
 									FALSE,             // initially not owned
 									NULL);             // unnamed mutex
-			if (ghTimerMutex2 == NULL) 
+			if (ghTimerMutex == NULL) 
 			{
-				CloseHandle(ghTimerMutex);
+				CloseHandle(ghIRQMutex);
 				U16550C_UartDestroy();
 				state.hasCommPort = FALSE;
 				return;
@@ -501,8 +521,8 @@ void U16550C_Create()
 									NULL);             // unnamed mutex
 			if (ghMutex == NULL) 
 			{
+				CloseHandle(ghIRQMutex);
 				CloseHandle(ghTimerMutex);
-				CloseHandle(ghTimerMutex2);
 				U16550C_UartDestroy();
 				state.hasCommPort = FALSE;
 			}
@@ -518,8 +538,8 @@ void U16550C_Create()
 
 				if (hTXThread == NULL) {
 					CloseHandle(ghMutex);
+					CloseHandle(ghIRQMutex);
 					CloseHandle(ghTimerMutex);
-					CloseHandle(ghTimerMutex2);
 					U16550C_UartDestroy();
 					state.hasCommPort = FALSE;
 				}
@@ -557,22 +577,32 @@ void U16550C_Destroy ()
 	if (hTXThread != NULL) {
 		// Stop running
 		b16550CTXThreadRunning = FALSE;
-		// Release mutex so if thread is waiting, it runs again
+		// Release mutex so if TX Thread is waiting, it runs again
 		ReleaseMutex(ghMutex);		
-		// release UART
-		U16550C_UartDestroy();
 		// Wait thread to die before killing mutex
         WaitForSingleObject(hTXThread, INFINITE);
+		// Adios TX Thread
+		CloseHandle(hTXThread);
+		hTXThread = NULL;
+		// And release the overlapped resource used by it
+		if (os_Write.hEvent != NULL)
+		{
+			CloseHandle(os_Write.hEvent);
+			os_Write.hEvent = NULL;
+		}
+
+		// release UART
+		U16550C_UartDestroy();		
 		// Release mutex as well
 		if (ghMutex)
 			CloseHandle(ghMutex);
 		if (ghTimerMutex)
 			CloseHandle(ghTimerMutex);
-		if (ghTimerMutex2)
-		CloseHandle(ghTimerMutex2);
-		// Close thread resources
-	    CloseHandle(hTXThread);
-        hTXThread = NULL;		
+		if (ghIRQMutex)
+			CloseHandle(ghIRQMutex);
+		ghMutex = NULL;
+		ghTimerMutex = NULL;
+		ghIRQMutex = NULL;
     }	
 }
 
@@ -938,25 +968,29 @@ void U16550C_SetBreak()
 // Clear DTR on real UART
 void U16550C_ClearDTR()
 {
-	EscapeCommFunction(hSerialPort,CLRDTR);
+	if (state.hasCommPort)
+		EscapeCommFunction(hSerialPort,CLRDTR);
 }
 
 // Set DTR on real UART
 void U16550C_SetDTR()
 {
-	EscapeCommFunction(hSerialPort,SETDTR);
+	if (state.hasCommPort)
+		EscapeCommFunction(hSerialPort,SETDTR);
 }
 
 // Clear RTS on real UART
 void U16550C_ClearRTS()
 {	
-	EscapeCommFunction(hSerialPort,CLRRTS);
+	if (state.hasCommPort)
+		EscapeCommFunction(hSerialPort,CLRRTS);
 }
 
 // Set RTS on real UART
 void U16550C_SetRTS()
 {
-	EscapeCommFunction(hSerialPort,SETRTS);
+	if (state.hasCommPort)
+		EscapeCommFunction(hSerialPort,SETRTS);
 }
 
 // RX Specific Functions
@@ -979,6 +1013,8 @@ void U16550C_RxFIFOReset()
 // In case FIFO is on, increase the FIFORxLevel indicator (used by IRQ Evaluation function)
 void U16550C_RxFIFOIn(UInt8 value, DWORD error)
 {	
+	if (!state.hasCommPort)
+		return;
 	U16550C_RXTimeOutCancel();
 	state.RXDataToutInt = FALSE; // Data entering resets Time Out Interrupt
 	state.LineStatusRegister|=0x1; // Set bit 1, not empty anymore, faster than checking if need to set, just set
@@ -1256,9 +1292,12 @@ void U16550C_RXTimeOutCancel()
 // This function will schedule a RX Timeout Timer, if needed
 void U16550C_RXTimeOutSchedule()
 {
-	int iCalculatedTimer;	
+	int iCalculatedTimer;
 
-	WaitForSingleObject(ghTimerMutex2,INFINITE);
+	if (!state.hasCommPort)
+		return;
+
+	WaitForSingleObject(ghTimerMutex,INFINITE);
 	U16550C_RXTimeOutCancel();
 	// Will evaluate if needed to schedule only if data receiving interrupt and FIFO are enabled
 	if ((state.FIFOControlRegister&0x01)&&(state.InterruptEnableRegister&0x01)&&(state.FIFORxTail!=state.FIFORxHead))
@@ -1280,7 +1319,7 @@ void U16550C_RXTimeOutSchedule()
 		// And let the IRQ evaluation function handle the rest
 		U16550C_EvaluateIRQ();
 	}
-	ReleaseMutex(ghTimerMutex2);
+	ReleaseMutex(ghTimerMutex);
 }
 
 // TX Specific Functions
@@ -1301,6 +1340,8 @@ void U16550C_TxFIFOReset()
 // Common Behavior: signal TXThread to start moving FIFO Data if it is idle
 void U16550C_TxFIFOIn(UInt8 value)
 {
+	if (!state.hasCommPort)
+		return;
 	state.TXEmptyInt = FALSE; // This interrupt should no longer be enabled as this is not empty now... :)
 	U16550C_EvaluateIRQ(); // Evaluate IRQ condtions again
 	if (state.FIFOControlRegister&0x01) // Fifo Enabled?
@@ -1372,6 +1413,8 @@ static void U16550C_WriteUARTBuffer(UInt8 value)
 // If Thread is Idle and there is data to send, Wake-Up thread
 void U16550C_SignalTXThreadToMove()
 {
+	if (!state.hasCommPort)
+		return;
 	if (!b16550CTXThreadWorking)
 	{
 		// Fifo Enabled and TX FiFO Not Empty?
@@ -1471,7 +1514,7 @@ static DWORD U16550C_TXThread(LPVOID lpvoid)
 void U16550C_EvaluateIRQ()
 {
 	unsigned char TriggerLevel = ((state.FIFOControlRegister>>6)&0x03); // Easier to switch 
-
+	WaitForSingleObject(ghIRQMutex,INFINITE);
 	// Interrupts Enabled for received data?
 	if (state.InterruptEnableRegister&1)
 	{
@@ -1601,6 +1644,7 @@ void U16550C_EvaluateIRQ()
 		// Clear Interrupt signal
 		boardClearInt(INT_U16550C);
 	}
+	ReleaseMutex(ghIRQMutex);
 }
 
 // This is a function that adjust UART status according to the status of each received byte

@@ -2080,6 +2080,7 @@ static BOOL updatePortsComList(HWND hDlg, int id, Properties* pProperties)
     DWORD dwNeeded;
     DWORD dwReturned;
     DWORD dwItem;
+	DWORD dwAddedItem;
 
     while (CB_ERR != SendDlgItemMessage(hDlg, id, CB_DELETESTRING, 0, 0));
 
@@ -2105,15 +2106,24 @@ static BOOL updatePortsComList(HWND hDlg, int id, Properties* pProperties)
 
 
     // Add COM ports 
-    for (dwItem = 0; dwItem < dwReturned; dwItem++) {
+    for (dwItem = 0, dwAddedItem = 0; dwItem < dwReturned; dwItem++) {
         size_t cch;
+		unsigned char portNameToCompare[128];
+		if (pProperties->ports.Com.type == P_COM_HOST)
+		{
+			strcpy(portNameToCompare,pProperties->ports.Com.portName);
+			strcat(portNameToCompare,":");
+		}
+		else
+			portNameToCompare[0]=0;
         if SUCCEEDED(StringCchLength(lpPortInfo[dwItem].pPortName, MAX_PATH-1, &cch))
             if (cch > 3)
                 if ((strncmp(lpPortInfo[dwItem].pPortName, "COM", 3) == 0) && IsNumeric(&lpPortInfo[dwItem].pPortName[3], TRUE))
                     if SUCCEEDED(StringCchPrintf(sBuf, MAX_PATH-1, "%s - %s", lpPortInfo[dwItem].pPortName, lpPortInfo[dwItem].pDescription)) {
                         SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)sBuf);
-                        if (pProperties->ports.Com.type == P_COM_HOST && 0 == strcmp(pProperties->ports.Com.name, lpPortInfo[dwItem].pPortName)) 
-                            SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 2 + dwItem, 0);
+                        if (pProperties->ports.Com.type == P_COM_HOST && 0 == strcmp(portNameToCompare, lpPortInfo[dwItem].pPortName)) 
+                            SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 2 + dwAddedItem, 0);
+						dwAddedItem++;
                     }
     }
 
@@ -2134,13 +2144,13 @@ static BOOL updateDIOComList(HWND hDlg, int id, Properties* pProperties)
 
     // Add SM-X
     SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"SM-X Uart");
-    if (pProperties->ports.Com.type == 1) 
+    if (pProperties->ports.Com.directuartio == 1) 
         SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 1, 0);
 
 	// Add 16C550 at 0x80
     SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"16C550@0x80");
-    if (pProperties->ports.Com.type == 2) 
-        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 1, 0);
+    if (pProperties->ports.Com.directuartio == 2) 
+        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 2, 0);
 
 
     return TRUE;

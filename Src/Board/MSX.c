@@ -102,6 +102,7 @@ static void reset()
 
 static void destroy() {        
 	smxWiFiDestroy();
+	U16550C_Destroy();
 
     rtcDestroy(rtc);
 
