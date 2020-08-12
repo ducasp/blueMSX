@@ -108,6 +108,7 @@ DWORD U16550C_PortReadThread (LPVOID lpvoid)
 	DWORD dwErr;
 	OVERLAPPED osReader = {0};
 	ULONGLONG ullTicks;
+	unsigned char TriggerLevel;
 
 	// Create the overlapped event. Must be closed before exiting
 	// to avoid a handle leak.
@@ -115,6 +116,35 @@ DWORD U16550C_PortReadThread (LPVOID lpvoid)
 
 	while (hSerialPort != INVALID_HANDLE_VALUE) 
 	{
+		if (((state.ModemControlRegister&0x22)==0x22)&&(state.FIFOControlRegister&0x01))
+		{
+			TriggerLevel = ((state.FIFOControlRegister>>6)&0x03);
+			if (TriggerLevel==0)
+				TriggerLevel = 1;
+			else if (TriggerLevel==1)
+				TriggerLevel = 4;
+			else if (TriggerLevel==2)
+				TriggerLevel = 8;
+			else
+				TriggerLevel = 16;
+			if ((b16550CHoldRTSUntilEmpty)||(state.FIFORxLevel>=TriggerLevel))
+			{
+				do
+				{
+					Sleep(0);
+					TriggerLevel = ((state.FIFOControlRegister>>6)&0x03);
+					if (TriggerLevel==0)
+						TriggerLevel = 1;
+					else if (TriggerLevel==1)
+						TriggerLevel = 4;
+					else if (TriggerLevel==2)
+						TriggerLevel = 8;
+					else
+						TriggerLevel = 16;
+				}
+				while(((b16550CHoldRTSUntilEmpty)||(state.FIFORxLevel>=TriggerLevel))&&(hSerialPort != INVALID_HANDLE_VALUE));
+			}
+		}
 		dwBytesTransferred = 0;
 		// Read the data from the serial port.
 		if (!ReadFile(hSerialPort, &value, 1, &dwBytesTransferred, &osReader))
