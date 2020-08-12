@@ -20,14 +20,13 @@
 #include <stdio.h>
 
 #define INT_U16550C	0x1000
-#define UART_CLOCK_16X	1843200//0
 
 UInt8 b16550CHoldStatusRegister = FALSE;
 UInt8 b16550CHoldRTSUntilEmpty = FALSE;
 UInt8 b16550CTXThreadRunning = FALSE;
 UInt8 b16550CTXThreadWorking = FALSE;
 UInt8 b16550CTXThreadGotMutex = FALSE;
-ULONGLONG ull16550CTicks;
+unsigned long ul16550CClock = 1843200; // Initial Clock, up to 115200bps
 unsigned long ul16550CBaudRate;
 HANDLE hTXThread = NULL;
 HANDLE ghMutex = NULL;
@@ -65,6 +64,7 @@ struct U16550C_STATE
 	UInt8 MSRInt;
 	UInt8 TXEmpty;
 	UInt8 RXEmpty;
+	UInt8 GenIRQ;
 	unsigned int FIFORxLevel;
 	unsigned int FIFORxHead;
 	unsigned int FIFORxTail;
@@ -490,9 +490,16 @@ void U16550C_Create()
 	Properties* pProperties = propGetGlobalProperties();
 	DWORD dwThreadID;	
 
-	if (pProperties->ports.Com.directuartio == 2)
+	if ((pProperties->ports.Com.directuartio > 1)||(pProperties->ports.Com.directuartio < 5))
 	{
-		
+		if (pProperties->ports.Com.directuartio == 4)
+			state.GenIRQ = FALSE;
+		else
+			state.GenIRQ = TRUE;
+		if((pProperties->ports.Com.directuartio == 2)||(pProperties->ports.Com.directuartio == 4))
+			ul16550CClock = 1843200; // Initial Clock, up to 115200bps
+		else
+			ul16550CClock = 18432000; // Initial Clock, up to 1152000bps
 		// Reset our emulated uart
 		if (U16550C_Reset())
 		{
@@ -857,7 +864,7 @@ unsigned char U16550C_Reset()
 	unsigned int uiDivisorLatch;
 
 	uiDivisorLatch = 1;
-	ul16550CBaudRate = UART_CLOCK_16X / (uiDivisorLatch*16); // Start at highest speed, whatever, not defined
+	ul16550CBaudRate = ul16550CClock / (uiDivisorLatch*16); // Start at highest speed, whatever, not defined
 
 	// No interrupt at all
 	boardClearInt(INT_U16550C);	
@@ -1609,32 +1616,37 @@ void U16550C_EvaluateIRQ()
 	if (state.LSRInt)
 	{
 		state.InterruptIdentificationRegister = (state.InterruptIdentificationRegister&0xf0)|0x06;
-		boardSetInt(INT_U16550C);
+		if (state.GenIRQ)
+			boardSetInt(INT_U16550C);
 	}
 	// Otherwise, then RX Buffer Threshold Hit
 	else if (state.RXDataInt)
 	{
 		state.InterruptIdentificationRegister = (state.InterruptIdentificationRegister&0xf0)|0x04;
-		boardSetInt(INT_U16550C);
+		if (state.GenIRQ)
+			boardSetInt(INT_U16550C);
 		state.RXDataToutInt = 0;
 	}
 	// Otherwise, then RX Buffer TimeOut
 	else if (state.RXDataToutInt)
 	{
 		state.InterruptIdentificationRegister = (state.InterruptIdentificationRegister&0xf0)|0x0c;
-		boardSetInt(INT_U16550C);
+		if (state.GenIRQ)
+			boardSetInt(INT_U16550C);
 	}
 	// Otherwise, then TX Buffer Empty
 	else if (state.TXEmptyInt)
 	{
 		state.InterruptIdentificationRegister = (state.InterruptIdentificationRegister&0xf0)|0x02;
-		boardSetInt(INT_U16550C);
+		if (state.GenIRQ)
+			boardSetInt(INT_U16550C);
 	}
 	// Finally, last check then, Modem Status
 	else if (state.MSRInt)
 	{
 		state.InterruptIdentificationRegister = (state.InterruptIdentificationRegister&0xf0);
-		boardSetInt(INT_U16550C);
+		if (state.GenIRQ)
+			boardSetInt(INT_U16550C);
 	}
 	// Nope, no interrupt at all
 	else
@@ -1789,7 +1801,7 @@ void U16550C_SetUartSpeed()
 	{
 		if (!uiDivisorLatch)
 			uiDivisorLatch = 1;
-		ul16550CBaudRateN = UART_CLOCK_16X / (uiDivisorLatch*16);
+		ul16550CBaudRateN = ul16550CClock / (uiDivisorLatch*16);
 		if (ul16550CBaudRateN!=ul16550CBaudRate)
 		{
 			ul16550CBaudRate = ul16550CBaudRateN;

@@ -2148,8 +2148,16 @@ static BOOL updateDIOComList(HWND hDlg, int id, Properties* pProperties)
         SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 1, 0);
 
 	// Add 16C550 at 0x80
-    SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"16C550@0x80");
+    SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"16550C@0x80 1.84MHz");
     if (pProperties->ports.Com.directuartio == 2) 
+        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 2, 0);
+
+	SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"16550C@0x80 18.4MHz");
+    if (pProperties->ports.Com.directuartio == 3) 
+        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 3, 0);
+
+	SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"16550C@0x80 1.84MHz NoINT");
+    if (pProperties->ports.Com.directuartio == 4) 
         SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 2, 0);
 
 
