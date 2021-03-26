@@ -152,6 +152,7 @@
 #define IDC_LPTFILENAMETEXT             1040
 #define IDD_VIDEO_SOFTWARE              1041
 #define IDD_VIDEO_DIRECT3D              1042
+#define IDC_PORTSCOMDIO                 1043
 
 #define IDC_EMUGENERALGROUPBOX          1800
 #define IDC_EMUFAMILYTEXT               1801
@@ -275,6 +276,7 @@
 #define IDC_PORTSCOMGROUPBOX            2218
 #define IDC_PORTSLPTTEXT                2219
 #define IDC_PORTSCOM1TEXT               2220
+#define IDC_PORTSDIOTEXT                2221
 
 #define IDC_SETINGSFILEHISTORYGOUPBOX   2300
 #define IDC_SETINGSHISTORYSIZETEXT      2301

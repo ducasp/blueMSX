@@ -31,7 +31,13 @@
 #include "MsxTypes.h"
 
 void archUartTransmit(UInt8 value);
+int archUartSetSpeed(unsigned long dwNewSpeed);
+void archUartSetLCR(unsigned char ucLCR);
+void archUartEscapeCommFunction(unsigned long dwFunc);
+unsigned long archUartGetModemStatus();
 int archUartCreate(void (*archUartReceiveCallback) (UInt8));
+int archUartCreate2(void (*archUartReceiveCallback) (UInt8), void (*archUartTransmitCallback) (void), unsigned long dwCreationSpeed);
+int archUartCreate3(void (*archUartReceiveCallback) (UInt8,unsigned long), void (*archUartControlCallback) (unsigned long), unsigned long dwCreationSpeed);
 void archUartDestroy(void);
 
 #endif

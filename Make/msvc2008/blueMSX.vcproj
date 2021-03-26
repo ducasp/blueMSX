@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="blueMSX"
 	ProjectGUID="{4AE8471F-8983-42BC-9ACB-7420F79C82C2}"
 	RootNamespace="fMSXwin"
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Src\Bios;..\..\Src\Board;..\..\Src\Theme;..\..\Src\Utils;..\..\Src\Emulator;..\..\Src\BuildInfo;..\..\Src\Common;..\..\Src\IoDevice;..\..\Src\Resources;..\..\Src\SoundChips;..\..\Src\Unzip;..\..\Src\VideoChips;..\..\Src\VideoRender;..\..\Src\Z80;..\..\Src\Language;..\..\Src\Memory;..\..\Src\TinyXML;..\..\Src\Arch;..\..\Src\Media;..\..\Src\Debugger;..\..\Src\Input;..\..\Src\ThirdParty\DirectShowSamples;..\..\Src\ThirdParty\WinPCap;&quot;C:\Program Files\Microsoft DirectX SDK (August 2007)\Include&quot;;&quot;c:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Include\atl&quot;"
+				AdditionalIncludeDirectories="..\..\Src\Bios;..\..\Src\Board;..\..\Src\Theme;..\..\Src\Utils;..\..\Src\Emulator;..\..\Src\BuildInfo;..\..\Src\Common;..\..\Src\IoDevice;..\..\Src\Resources;..\..\Src\SoundChips;..\..\Src\Unzip;..\..\Src\VideoChips;..\..\Src\VideoRender;..\..\Src\Z80;..\..\Src\Language;..\..\Src\Memory;..\..\Src\TinyXML;..\..\Src\Arch;..\..\Src\Media;..\..\Src\Debugger;..\..\Src\Input;..\..\Src\ThirdParty\DirectShowSamples;..\..\Src\ThirdParty\WinPCap;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Include&quot;;&quot;c:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Include\atl&quot;"
 				PreprocessorDefinitions="OLD_Y8950;WIN32;_DEBUG;_CONSOLE;WINDOWS;NARROW;SOUND;DISK;NOCRYPT;NOUNCRYPT;PROPERTIES_LOCAL_INI_FILE;USE_NOWIND_DLL;USE_PACKET_FS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -68,7 +68,7 @@
 				AdditionalDependencies="D3d9.lib  D3dx9.lib wsock32.lib ws2_32.lib dxguid.lib Vfw32.lib winmm.lib ComCtl32.Lib shlwapi.lib ddraw.lib dsound.lib dinput.lib ..\..\Src\ThirdParty\DirectShowSamples\STRMBASE.lib  comsuppwd.lib"
 				OutputFile="$(OutDir)/blueMSX.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="C:\Program Files\Microsoft DirectX SDK (August 2007)\Lib\x86"
+				AdditionalLibraryDirectories="C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Lib\x86"
 				IgnoreDefaultLibraryNames="libc.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/blueMSX.pdb"
@@ -129,7 +129,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="..\..\Src\Bios;..\..\Src\Board;..\..\Src\Theme;..\..\Src\Utils;..\..\Src\Emulator;..\..\Src\BuildInfo;..\..\Src\Common;..\..\Src\IoDevice;..\..\Src\Resources;..\..\Src\SoundChips;..\..\Src\Unzip;..\..\Src\VideoChips;..\..\Src\VideoRender;..\..\Src\Z80;..\..\Src\Language;..\..\Src\Memory;..\..\Src\TinyXML;..\..\Src\Arch;..\..\Src\Media;..\..\Src\Debugger;..\..\Src\Input;..\..\Src\ThirdParty\DirectShowSamples;..\..\Src\ThirdParty\WinPCap;&quot;C:\Program Files\Microsoft DirectX SDK (August 2007)\Include&quot;;&quot;c:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Include\atl&quot;"
+				AdditionalIncludeDirectories="..\..\Src\Bios;..\..\Src\Board;..\..\Src\Theme;..\..\Src\Utils;..\..\Src\Emulator;..\..\Src\BuildInfo;..\..\Src\Common;..\..\Src\IoDevice;..\..\Src\Resources;..\..\Src\SoundChips;..\..\Src\Unzip;..\..\Src\VideoChips;..\..\Src\VideoRender;..\..\Src\Z80;..\..\Src\Language;..\..\Src\Memory;..\..\Src\TinyXML;..\..\Src\Arch;..\..\Src\Media;..\..\Src\Debugger;..\..\Src\Input;..\..\Src\ThirdParty\DirectShowSamples;..\..\Src\ThirdParty\WinPCap;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Include&quot;;&quot;c:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Include\atl&quot;"
 				PreprocessorDefinitions="OLD_Y8950;_MBCS;__WINCRYPT_H__;WIN32;_WINDOWS;WINDOWS;NDEBUG;NARROW;SOUND;DISK;NOCRYPT;NOUNCRYPT;PROPERTIES_LOCAL_INI_FILE;USE_NOWIND_DLL;USE_PACKET_FS;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="0"
 				EnableEnhancedInstructionSet="0"
@@ -154,7 +154,7 @@
 				AdditionalDependencies="D3d9.lib D3dx9.lib dxguid.lib Vfw32.lib winmm.lib ComCtl32.Lib shlwapi.lib ddraw.lib dsound.lib dinput.lib ..\..\Src\ThirdParty\DirectShowSamples\STRMBASE.lib comsuppw.lib"
 				OutputFile="$(OutDir)/blueMSX.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="C:\Program Files\Microsoft DirectX SDK (August 2007)\Lib\x86"
+				AdditionalLibraryDirectories="C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Lib\x86"
 				IgnoreDefaultLibraryNames="libc.lib"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -2028,6 +2028,14 @@
 			Name="IoDevice"
 			>
 			<File
+				RelativePath="..\..\Src\IoDevice\16550C.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Src\IoDevice\16550C.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Src\IoDevice\Casette.c"
 				>
 			</File>
@@ -2249,6 +2257,14 @@
 			</File>
 			<File
 				RelativePath="..\..\Src\IoDevice\sl811hs.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Src\IoDevice\SMXWiFi.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Src\IoDevice\SMXWiFi.h"
 				>
 			</File>
 			<File
@@ -3264,6 +3280,262 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath="..\..\Src\Resources\audio.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\background.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\backgroundsmall.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\bluemsx.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonCart1.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonCart2.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonCas.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonDiskA.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonDiskB.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonHelp.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonOptions.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonPause.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonPlay.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonReset.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonSize.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\buttonStop.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\casimage.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\diskimage.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\expmark.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagBrazil.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagCatalonia.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagChinaSimp.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagChinaTrad.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagFinland.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagFrance.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagGermany.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagItaly.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagJapan.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagKorea.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagNetherlands.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagPoland.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagRussia.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagSpain.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagSweden.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\flagUSA.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\font.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\font2.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\fpsUnit.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\freqUnit.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\history.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\joystick.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\keyboard.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\ledAs.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\ledCaps.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\ledCas.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\ledDiskA.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\ledDiskB.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\ledFs.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\classic\ledKana.bmp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\machine.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\mixerpan.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\mixervol.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\mixervol2.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\monitor.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\open.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\ports.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\romimage.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\screensaver.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\screensettings.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\slots.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\stateimage.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\stopwatch.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\transparent.ico"
+			>
+		</File>
+		<File
+			RelativePath="..\..\Src\Resources\warning.ico"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

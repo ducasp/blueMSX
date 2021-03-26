@@ -2080,6 +2080,7 @@ static BOOL updatePortsComList(HWND hDlg, int id, Properties* pProperties)
     DWORD dwNeeded;
     DWORD dwReturned;
     DWORD dwItem;
+	DWORD dwAddedItem;
 
     while (CB_ERR != SendDlgItemMessage(hDlg, id, CB_DELETESTRING, 0, 0));
 
@@ -2105,20 +2106,60 @@ static BOOL updatePortsComList(HWND hDlg, int id, Properties* pProperties)
 
 
     // Add COM ports 
-    for (dwItem = 0; dwItem < dwReturned; dwItem++) {
+    for (dwItem = 0, dwAddedItem = 0; dwItem < dwReturned; dwItem++) {
         size_t cch;
+		unsigned char portNameToCompare[128];
+		if (pProperties->ports.Com.type == P_COM_HOST)
+		{
+			strcpy(portNameToCompare,pProperties->ports.Com.portName);
+			strcat(portNameToCompare,":");
+		}
+		else
+			portNameToCompare[0]=0;
         if SUCCEEDED(StringCchLength(lpPortInfo[dwItem].pPortName, MAX_PATH-1, &cch))
             if (cch > 3)
                 if ((strncmp(lpPortInfo[dwItem].pPortName, "COM", 3) == 0) && IsNumeric(&lpPortInfo[dwItem].pPortName[3], TRUE))
                     if SUCCEEDED(StringCchPrintf(sBuf, MAX_PATH-1, "%s - %s", lpPortInfo[dwItem].pPortName, lpPortInfo[dwItem].pDescription)) {
                         SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)sBuf);
-                        if (pProperties->ports.Com.type == P_COM_HOST && 0 == strcmp(pProperties->ports.Com.name, lpPortInfo[dwItem].pPortName)) 
-                            SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 2 + dwItem, 0);
+                        if (pProperties->ports.Com.type == P_COM_HOST && 0 == strcmp(portNameToCompare, lpPortInfo[dwItem].pPortName)) 
+                            SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 2 + dwAddedItem, 0);
+						dwAddedItem++;
                     }
     }
 
     // Free memory
     HeapFree(GetProcessHeap(), 0, lpPortInfo);
+
+    return TRUE;
+}
+
+
+static BOOL updateDIOComList(HWND hDlg, int id, Properties* pProperties)
+{
+    while (CB_ERR != SendDlgItemMessage(hDlg, id, CB_DELETESTRING, 0, 0));
+
+    // Add NONE:
+    SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)langPropPortsNone());
+    SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 0, 0); // Set as default
+
+    // Add SM-X
+    SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"SM-X Uart");
+    if (pProperties->ports.Com.directuartio == 1) 
+        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 1, 0);
+
+	// Add 16C550 at 0x80
+    SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"16550C@0x80 1.84MHz");
+    if (pProperties->ports.Com.directuartio == 2) 
+        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 2, 0);
+
+	SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"16550C@0x80 18.4MHz");
+    if (pProperties->ports.Com.directuartio == 3) 
+        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 3, 0);
+
+	SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"16550C@0x80 1.84MHz NoINT");
+    if (pProperties->ports.Com.directuartio == 4) 
+        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 2, 0);
+
 
     return TRUE;
 }
@@ -2155,6 +2196,7 @@ static BOOL CALLBACK portsDlgProc(HWND hDlg, UINT iMsg, WPARAM wParam, LPARAM lP
 
         updatePortsLptList(hDlg, IDC_PORTSLPT, pProperties);
         updatePortsComList(hDlg, IDC_PORTSCOM1, pProperties);
+		updateDIOComList(hDlg, IDC_PORTSCOMDIO, pProperties);
 
         updatePortsLptEmulList(hDlg, IDC_LPTEMULATION, pProperties);
 
@@ -2236,6 +2278,13 @@ static BOOL CALLBACK portsDlgProc(HWND hDlg, UINT iMsg, WPARAM wParam, LPARAM lP
                 int idx = SendDlgItemMessage(hDlg, IDC_PORTSCOM1, CB_GETCURSEL, 0, 0);
                 EnableWindow(GetDlgItem(hDlg, IDC_COM1FILENAMEBROWSE), idx == P_COM_FILE);
                 EnableWindow(GetDlgItem(hDlg, IDC_COM1FILENAME), idx == P_COM_FILE);
+            }
+            return TRUE;
+
+		case IDC_PORTSCOMDIO:
+			{
+                int idx = SendDlgItemMessage(hDlg, IDC_PORTSCOMDIO, CB_GETCURSEL, 0, 0);
+				pProperties->ports.Com.directuartio = idx;
             }
             return TRUE;
 

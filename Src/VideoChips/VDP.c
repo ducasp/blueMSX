@@ -546,6 +546,8 @@ static void onVint(VDP* vdp, UInt32 time)
     framecounter++;
 
 //    vdp->lineOffset = -1;
+	if ((vdp->vdpRegs[13]&0x0f)&&(vdp->vdpRegs[13]&0xf0))
+		vdpBlink(vdp);
     vdp->vdpStatus[0] |= 0x80;
     vdp->vdpStatus[2] |= 0x40;
 //    if (vdp->vdpVersion != VDP_TMS9929A && vdp->vdpVersion != VDP_TMS99x8A) {
