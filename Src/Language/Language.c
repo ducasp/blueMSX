@@ -1006,6 +1006,7 @@ char* langRomTypeFmdas() { return "F&M Direct Assembler System"; }
 char* langRomTypeSfg01() { return "Yamaha SFG-01"; }
 char* langRomTypeSfg05() { return "Yamaha SFG-05"; }
 char* langRomTypeObsonet() { return "Obsonet"; }
+char* langRomTypeMSXPicoWiFi() { return "MSXPicoWiFi"; }
 char* langRomTypeDumas() { return "Dumas"; }
 char* langRomTypeNoWind() { return "NoWind USB"; }
 char* langRomTypeSegaBasic() { return "Sega Basic"; }

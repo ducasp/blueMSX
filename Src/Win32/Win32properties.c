@@ -2158,8 +2158,12 @@ static BOOL updateDIOComList(HWND hDlg, int id, Properties* pProperties)
 
 	SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"16550C@0x80 1.84MHz NoINT");
     if (pProperties->ports.Com.directuartio == 4) 
-        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 2, 0);
+        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 4, 0);
 
+	// Add MSXPico Wi-Fi
+	SendDlgItemMessage(hDlg, id, CB_ADDSTRING, 0, (LPARAM)"MSXPico Wi-Fi Uart");
+    if (pProperties->ports.Com.directuartio == 5) 
+        SendDlgItemMessage(hDlg, id, CB_SETCURSEL, 5, 0);
 
     return TRUE;
 }

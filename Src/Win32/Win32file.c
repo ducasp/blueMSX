@@ -154,6 +154,7 @@ static RomType romTypeList[] = {
     ROM_SG1000_RAMEXPANDER_A,
     ROM_SG1000_RAMEXPANDER_B,
     ROM_SEGABASIC,
+	ROM_MSXPICOWIFI_16K,
     
     ROM_UNKNOWN,
 };

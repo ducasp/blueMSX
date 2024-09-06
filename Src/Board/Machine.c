@@ -121,6 +121,7 @@
 #include "romMapperSf7000Ipl.h"
 #include "romMapperPlayBall.h"
 #include "romMapperObsonet.h"
+#include "romMapperMSXPico.h"
 #include "romMapperSg1000Castle.h"
 #include "romMapperSg1000.h"
 #include "romMapperSg1000RamExpander.h"
@@ -1463,6 +1464,10 @@ int machineInitialize(Machine* machine, UInt8** mainRam, UInt32* mainRamSize, UI
 
         case ROM_OBSONET:
             success &= romMapperObsonetCreate(romName, buf, size, slot, subslot, startPage);
+            break;
+
+		case ROM_MSXPICOWIFI_16K:
+			success &= romMapperMSXPicoCreate(romName, buf, size, slot, subslot, startPage);
             break;
 
         case ROM_NOWIND:

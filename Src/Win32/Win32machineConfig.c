@@ -868,6 +868,10 @@ static void endEditControls(HWND hDlg)
         editSlotInfo.pageCount = 4;
         break;
 
+	case ROM_MSXPICOWIFI_16K:
+		editSlotInfo.startPage = 2;
+        editSlotInfo.pageCount = 1;
+
     case ROM_0x4000:
         editSlotInfo.startPage = 2;
         editSlotInfo.pageCount = 4;
@@ -1341,7 +1345,13 @@ static void setEditControls(HWND hDlg)
         EnableWindow(GetDlgItem(hDlg, IDC_ROMADDR), FALSE);
         break;
 
-    case ROM_HALNOTE:
+	case ROM_MSXPICOWIFI_16K:
+        SetWindowText(GetDlgItem(hDlg, IDC_ROMIMAGE), editSlotInfo.name);
+        SetWindowText(GetDlgItem(hDlg, IDC_ROMADDR), "0x4000 - 0x7FFF");
+        EnableWindow(GetDlgItem(hDlg, IDC_ROMADDR), FALSE);
+        break;
+
+	case ROM_HALNOTE:
     case ROM_NOWIND:
     case ROM_PANASONIC8:
     case ROM_PANASONICWX16:
@@ -1481,6 +1491,7 @@ static RomType romTypeList[] = {
     ROM_GAMEREADER,
     ROM_NOWIND,
     ROM_OBSONET,
+	ROM_MSXPICOWIFI_16K,
     ROM_YAMAHANET,
     
     SRAM_MATSUCHITA,

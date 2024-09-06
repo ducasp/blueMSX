@@ -520,7 +520,7 @@ void U16550C_Create()
 	Properties* pProperties = propGetGlobalProperties();
 	DWORD dwThreadID;	
 
-	if ((pProperties->ports.Com.directuartio > 1)||(pProperties->ports.Com.directuartio < 5))
+	if ((pProperties->ports.Com.directuartio > 1)&&(pProperties->ports.Com.directuartio < 5))
 	{
 		if (pProperties->ports.Com.directuartio == 4)
 			state.GenIRQ = FALSE;

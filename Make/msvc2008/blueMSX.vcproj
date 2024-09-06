@@ -1243,6 +1243,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\Src\Memory\romMapperMSXPico.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\Src\Memory\romMapperMsxPrn.c"
 					>
 				</File>
@@ -1700,6 +1704,10 @@
 				</File>
 				<File
 					RelativePath="..\..\Src\Memory\romMapperMsxMusic.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Src\Memory\romMapperMSXPico.h"
 					>
 				</File>
 				<File
@@ -2177,6 +2185,14 @@
 			</File>
 			<File
 				RelativePath="..\..\Src\IoDevice\MSXMidi.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Src\IoDevice\MSXPicoWiFi.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Src\IoDevice\MSXPicoWiFi.h"
 				>
 			</File>
 			<File

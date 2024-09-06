@@ -816,6 +816,7 @@ char* langRomTypeFmdas();
 char* langRomTypeSfg01();
 char* langRomTypeSfg05();
 char* langRomTypeObsonet();
+char* langRomTypeMSXPicoWiFi();
 char* langRomTypeDumas();
 char* langRomTypeNoWind();
 char* langRomTypeMegaSCSI();

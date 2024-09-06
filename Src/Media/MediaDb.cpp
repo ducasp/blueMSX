@@ -209,6 +209,7 @@ RomType mediaDbStringToType(const char* romName)
     if (iequals(name, "SF-7000IPL"))   return ROM_SF7000IPL;
     if (iequals(name, "FMDAS"))        return ROM_FMDAS;
     if (iequals(name, "Obsonet"))      return ROM_OBSONET;
+	if (iequals(name, "MSXPicoWiFi"))  return ROM_MSXPICOWIFI_16K;
     if (iequals(name, "Dumas"))        return ROM_DUMAS;
     if (iequals(name, "NoWind"))       return ROM_NOWIND;
 
@@ -589,6 +590,7 @@ extern "C" const char* romTypeToString(RomType romType)
     case ROM_MEGAFLSHSCC: return langRomTypeMegaFlashRomScc();
     case ROM_MEGAFLSHSCCPLUS: return "Mega Flash Rom SCC+";
     case ROM_OBSONET:     return langRomTypeObsonet();
+	case ROM_MSXPICOWIFI_16K:return langRomTypeMSXPicoWiFi();
     case ROM_DUMAS:       return langRomTypeDumas();
     case ROM_NOWIND:      return langRomTypeNoWind();
     case ROM_KONAMI4:     return langRomTypeKonami();
@@ -767,6 +769,7 @@ extern "C" const char* romTypeToShortString(RomType romType)
     case ROM_MEGAFLSHSCC: return "MEGAFLSHSCC";
     case ROM_MEGAFLSHSCCPLUS: return "MEGAFLSHSCC+";
     case ROM_OBSONET:     return "OBSONET";
+	case ROM_MSXPICOWIFI_16K:return "MSXPICOWIFI";
     case ROM_DUMAS:       return "DUMAS";
     case ROM_NOWIND:      return "NOWIND";
     case ROM_KONAMI4:     return "KONAMI";

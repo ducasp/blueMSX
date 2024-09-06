@@ -201,7 +201,8 @@ enum  {
     ROM_ACTIVISIONPCB_256K = 171,
     ROM_ACTIVISIONPCB = 172,
     ROM_ACTIVISIONPCB_16K = 173,
-    ROM_MAXROMID    = 173
+	ROM_MSXPICOWIFI_16K = 174,
+    ROM_MAXROMID    = 174
 };
 
 typedef struct MediaType MediaType;

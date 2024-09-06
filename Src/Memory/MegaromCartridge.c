@@ -93,6 +93,7 @@
 #include "romMapperSf7000Ipl.h"
 #include "romMapperPlayBall.h"
 #include "romMapperObsonet.h"
+#include "romMapperMSXPico.h"
 #include "romMapperSg1000.h"
 #include "romMapperSegaBasic.h"
 #include "romMapperCvMegaCart.h"
@@ -463,6 +464,10 @@ int cartridgeInsert(int cartNo, RomType romType, const char* cart, const char* c
 
         case ROM_OBSONET:
             success &= romMapperObsonetCreate(romName, buf, size, slot, sslot, 2);
+            break;
+
+		case ROM_MSXPICOWIFI_16K:
+			success &= romMapperMSXPicoCreate(romName, buf, size, slot, sslot, 2);
             break;
 
         case ROM_NOWIND:
