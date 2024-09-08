@@ -30,6 +30,7 @@ unsigned char ucIsFirstLog;
 #endif
 unsigned char bFirstReceiveAfterTx = 0;
 unsigned char bBufferUnderrun = 0;
+unsigned char bIOAssigned = 0;
 ULONGLONG ullTicks;
 const DWORD dwUartSpeedTable[10] = {859372, 346520, 231014, 115200, 57600, 38400, 31250, 19200, 9600, 4800};
 #ifdef SMXWIFI_MUTEX
@@ -214,11 +215,14 @@ void smxWiFiCreate ()
 	Initialized = TRUE;
 #endif
 	if (pProperties->ports.Com.directuartio == 1)
+	{
 		state.hasCommPort = archUartCreate2(smxWiFiFIFOIn, smxWiFiTXDone, dwUartSpeedTable[state.UARTSpeed]);
+	    ioPortRegister(0x06, smxWiFiReadUARTBuffer, smxWiFiWriteUARTCommand,  (void*) &state);
+	    ioPortRegister(0x07, smxWiFiReadUARTStatus, smxWiFiWriteUARTBuffer,  (void*) &state);
+		bIOAssigned = 1;
+	}
 	else
 		state.hasCommPort = FALSE;
-    ioPortRegister(0x06, smxWiFiReadUARTBuffer, smxWiFiWriteUARTCommand,  (void*) &state);
-    ioPortRegister(0x07, smxWiFiReadUARTStatus, smxWiFiWriteUARTBuffer,  (void*) &state);
 }
 
 void smxWiFiDestroy ()
@@ -226,9 +230,13 @@ void smxWiFiDestroy ()
 #ifdef SMXWIFI_LOG
 	fclose(logfile);
 #endif
-    ioPortUnregister(0x06);
-    ioPortUnregister(0x07);
-	archUartDestroy();
+	if (bIOAssigned != 0)
+	{
+		ioPortUnregister(0x06);
+		ioPortUnregister(0x07);
+		archUartDestroy();
+		bIOAssigned = 0;
+	}
 #ifdef SMXWIFI_MUTEX
 	CloseHandle(ghMutex);
 	Initialized = FALSE;

@@ -61,15 +61,15 @@ static void reset(RomMapperMSXPico* rm)
 
 static UInt8 read(RomMapperMSXPico* rm, UInt16 address) 
 {
-    if (address == 0x3006) { 
+	if (address == 0x3F06) { 
         return msxPicoWiFiReadUARTBuffer();
     }
 
-	if (address == 0x3007) { 
+	if (address == 0x3F07) { 
         return msxPicoWiFiReadUARTStatus();
     }
 
-	if (address == 0x30F2) { 
+	if (address == 0x3FF2) { 
         return msxPicoWiFiReadF2();
     }
 
@@ -84,23 +84,23 @@ static UInt8 read(RomMapperMSXPico* rm, UInt16 address)
 static UInt8 peek(RomMapperMSXPico* rm, UInt16 address) 
 {
     
-    if (address == 0x3006) return 0xff;
-	if (address == 0x3007) return 0xff;
-	if (address == 0x30F2) return 0xff;
+    if (address == 0x3F06) return 0xff;
+	if (address == 0x3F07) return 0xff;
+	if (address == 0x3FF2) return 0xff;
     return read(rm, address);
 }
 
 static void write(RomMapperMSXPico* rm, UInt16 address, UInt8 value) 
 {
-	if (address == 0x3006) { 
+	if (address == 0x3F06) { 
         msxPicoWiFiWriteUARTCommand(value);
     }
 
-	if (address == 0x3007) { 
+	if (address == 0x3F07) { 
         msxPicoWiFiWriteUARTBuffer(value);
     }
 
-	if (address == 0x30F2) { 
+	if (address == 0x3FF2) { 
         msxPicoWiFiWriteF2(value);
     }
 }
